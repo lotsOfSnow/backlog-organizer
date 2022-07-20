@@ -17,6 +17,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{962F5CD0-0A61-4A53-90BD-87418768C92C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{73F1C847-6138-4D20-B312-E61177A8D60A}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet-build.yml = .github\workflows\dotnet-build.yml
+		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +47,7 @@ Global
 		{CD047B92-D5E5-4E36-AEA1-E780B8E14FC9} = {8F936714-F2E2-42D1-A4C4-BF0D2E2E3251}
 		{1D5E6A56-FEDE-471F-B991-53EED63A3072} = {8F936714-F2E2-42D1-A4C4-BF0D2E2E3251}
 		{8F936714-F2E2-42D1-A4C4-BF0D2E2E3251} = {89DABE22-6CD8-49B7-9C9E-2FEE57985EB3}
+		{73F1C847-6138-4D20-B312-E61177A8D60A} = {962F5CD0-0A61-4A53-90BD-87418768C92C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {43240395-9127-464B-96F9-DA31EC6A4C38}
