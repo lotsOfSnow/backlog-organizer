@@ -25,6 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{7FD118A4-83BA-4256-98F9-4E2D38C4F413}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Core", "src\Shared\Shared.Core\Shared.Core.csproj", "{436AC8DF-F522-47CB-8D1E-C2DBA2BCAECC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,10 @@ Global
 		{1D5E6A56-FEDE-471F-B991-53EED63A3072}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D5E6A56-FEDE-471F-B991-53EED63A3072}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D5E6A56-FEDE-471F-B991-53EED63A3072}.Release|Any CPU.Build.0 = Release|Any CPU
+		{436AC8DF-F522-47CB-8D1E-C2DBA2BCAECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{436AC8DF-F522-47CB-8D1E-C2DBA2BCAECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{436AC8DF-F522-47CB-8D1E-C2DBA2BCAECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{436AC8DF-F522-47CB-8D1E-C2DBA2BCAECC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +56,8 @@ Global
 		{1D5E6A56-FEDE-471F-B991-53EED63A3072} = {8F936714-F2E2-42D1-A4C4-BF0D2E2E3251}
 		{8F936714-F2E2-42D1-A4C4-BF0D2E2E3251} = {89DABE22-6CD8-49B7-9C9E-2FEE57985EB3}
 		{73F1C847-6138-4D20-B312-E61177A8D60A} = {962F5CD0-0A61-4A53-90BD-87418768C92C}
+		{7FD118A4-83BA-4256-98F9-4E2D38C4F413} = {89DABE22-6CD8-49B7-9C9E-2FEE57985EB3}
+		{436AC8DF-F522-47CB-8D1E-C2DBA2BCAECC} = {7FD118A4-83BA-4256-98F9-4E2D38C4F413}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {43240395-9127-464B-96F9-DA31EC6A4C38}
