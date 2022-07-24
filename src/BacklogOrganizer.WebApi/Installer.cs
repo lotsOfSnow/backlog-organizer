@@ -11,7 +11,7 @@ internal static class Installer
         services.AddSharedCore();
         services.AddSharedInfrastructure();
 
-        ModuleLoader.Load(services, configuration, AppDomain.CurrentDomain.GetAssemblies());
+        ModuleLoader.Load(services, configuration);
 
         services.AddControllers();
         services.AddEndpointsApiExplorer();
