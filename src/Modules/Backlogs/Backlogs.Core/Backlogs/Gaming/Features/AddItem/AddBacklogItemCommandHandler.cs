@@ -1,6 +1,7 @@
 using Ardalis.GuardClauses;
 using BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Gaming.Features.AddItem;
 
@@ -16,7 +17,11 @@ public class AddBacklogItemCommandHandler : IRequestHandler<AddBacklogItemComman
     public async Task<Unit> Handle(AddBacklogItemCommand request, CancellationToken cancellationToken)
     {
         // TODO: Support multiple backlogs, validate that it found the right one.
-        var backlog = _storage.GamingBacklogs.FirstOrDefault();
+        var backlog = _storage
+            .GamingBacklogs
+            .Include(x => x.Items)
+            .FirstOrDefault();
+
         Guard.Against.Null(backlog, nameof(backlog));
 
         var item = new GameBacklogItem(request.Name);
