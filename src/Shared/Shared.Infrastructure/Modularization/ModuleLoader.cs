@@ -6,8 +6,12 @@ namespace BacklogOrganizer.Shared.Infrastructure.Modularization;
 
 internal static class ModuleLoader
 {
-    public static IServiceCollection Load(IServiceCollection services, IConfiguration configuration, params Assembly[] assemblies)
+    private const string ModuleIdentifier = ".Module.";
+
+    public static IServiceCollection Load(IServiceCollection services, IConfiguration configuration)
     {
+        var assemblies = LoadAssemblies(configuration);
+
         foreach (var module in GetAllModules(assemblies))
         {
             module.Register(services, configuration);
@@ -15,6 +19,26 @@ internal static class ModuleLoader
 
         return services;
     }
+
+    // Assemblies are only loaded on first use, so not loading them explicitly will make it ignore all the referenced modules.
+    private static IEnumerable<Assembly> LoadAssemblies(IConfiguration configuration)
+    {
+        var alreadyLoadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+        var loadedAssembliesLocations = alreadyLoadedAssemblies.Where(x => !x.IsDynamic).Select(x => x.Location).ToArray();
+
+        var notYetLoadedModulesDlls = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
+            .Where(x => !loadedAssembliesLocations.Contains(x, StringComparer.OrdinalIgnoreCase))
+            .Where(x => x.Contains(ModuleIdentifier)).ToList();
+
+        foreach (var dllPath in notYetLoadedModulesDlls)
+        {
+            var loadedAssembly = AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(dllPath));
+            alreadyLoadedAssemblies.Add(loadedAssembly);
+        }
+
+        return alreadyLoadedAssemblies;
+    }
+
 
     private static IEnumerable<IModule> GetAllModules(IEnumerable<Assembly> assemblies)
         => assemblies.SelectMany(x => x.GetTypes())
