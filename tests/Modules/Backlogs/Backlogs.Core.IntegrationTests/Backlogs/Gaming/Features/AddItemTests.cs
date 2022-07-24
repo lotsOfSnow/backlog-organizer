@@ -13,10 +13,14 @@ public class AddBacklogItemTests : IClassFixture<BacklogsApplicationFactory>
     [Fact]
     public async Task Can_create_backlog_item()
     {
-        var request = new AddBacklogItemCommand(GamingBacklog.InstanceId, "Test item");
+        const string expectedName = "Test item";
+        var request = new AddBacklogItemCommand(GamingBacklog.InstanceId, expectedName);
 
         await _factory.SendAsync(request);
 
-        var createdItem = await _factory.FindAsync<GameBacklogItem>(new { request.AddedItemId });
+        var createdItem = await _factory.FindAsync<GameBacklogItem>(request.AddedItemId!);
+        createdItem.Should().NotBeNull();
+        createdItem!.Name.Should().Be(expectedName);
+        createdItem.Id.Should().NotBe(default(Guid));
     }
 }
