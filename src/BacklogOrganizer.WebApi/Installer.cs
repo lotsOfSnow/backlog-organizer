@@ -14,7 +14,6 @@ internal static class Installer
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
-
         return services;
     }
 }
