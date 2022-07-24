@@ -2,11 +2,11 @@ using System.Net;
 
 namespace BacklogOrganizer.WebApi.IntegrationTests.Home;
 
-public class HomeControllerTests : IClassFixture<CustomWebApplicationFactory>
+public class HomeControllerTests : IClassFixture<WebApiApplicationFactory>
 {
-    private readonly CustomWebApplicationFactory _factory;
+    private readonly WebApiApplicationFactory _factory;
 
-    public HomeControllerTests(CustomWebApplicationFactory factory)
+    public HomeControllerTests(WebApiApplicationFactory factory)
         => _factory = factory;
 
     [Fact]
