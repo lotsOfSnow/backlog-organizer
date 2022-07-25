@@ -10,9 +10,12 @@ public class GamingBacklogRepository : IGamingBacklogRepository
     public GamingBacklogRepository(IBacklogStorage storage)
         => _storage = storage;
 
-    public async Task<GamingBacklog?> GetAsync(Guid id)
+    public async Task<GamingBacklog?> GetAsync(Guid id, CancellationToken cancellationToken = default)
         => await _storage
             .GamingBacklogs
             .Include(x => x.Items)
-            .FirstOrDefaultAsync(x => x.Id == id);
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        => await _storage.SaveChangesAsync(cancellationToken);
 }
