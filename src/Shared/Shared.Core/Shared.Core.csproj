@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1"/>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="BacklogOrganizer.WebApi"/>
+    <InternalsVisibleTo Include="BacklogOrganizer.WebApi" />
   </ItemGroup>
   
 </Project>

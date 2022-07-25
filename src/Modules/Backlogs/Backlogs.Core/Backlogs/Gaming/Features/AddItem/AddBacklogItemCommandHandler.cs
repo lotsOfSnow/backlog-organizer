@@ -1,33 +1,28 @@
 using Ardalis.GuardClauses;
-using BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Data;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Gaming.Features.AddItem;
 
 public class AddBacklogItemCommandHandler : IRequestHandler<AddBacklogItemCommand>
 {
-    private readonly IBacklogStorage _storage;
+    private readonly IGamingBacklogRepository _repository;
 
-    public AddBacklogItemCommandHandler(IBacklogStorage storage)
+    public AddBacklogItemCommandHandler(IGamingBacklogRepository repository)
     {
-        _storage = storage;
+        _repository = repository;
     }
 
     public async Task<Unit> Handle(AddBacklogItemCommand request, CancellationToken cancellationToken)
     {
         // TODO: Support multiple backlogs, validate that it found the right one.
-        var backlog = _storage
-            .GamingBacklogs
-            .Include(x => x.Items)
-            .FirstOrDefault();
+        var backlog = await _repository.GetAsync(GamingBacklog.InstanceId, cancellationToken);
 
         Guard.Against.Null(backlog, nameof(backlog));
 
         var item = new GameBacklogItem(request.Name);
         backlog.AddItem(item);
 
-        await _storage.SaveChangesAsync(cancellationToken);
+        await _repository.SaveChangesAsync(cancellationToken);
 
         request.AddedItemId = item.Id;
 
