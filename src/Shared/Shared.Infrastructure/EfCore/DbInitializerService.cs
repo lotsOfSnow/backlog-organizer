@@ -24,7 +24,6 @@ public class DbInitializerService : IHostedService
             .Where(x => x.IsConcreteImplementationOf<DbContext>());
 
         await using var sp = _serviceProvider.CreateAsyncScope();
-
         foreach (var type in dbContextsTypes)
         {
             var dbContext = (DbContext)sp.ServiceProvider.GetRequiredService(type);
