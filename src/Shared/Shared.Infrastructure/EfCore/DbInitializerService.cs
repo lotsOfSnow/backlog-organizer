@@ -1,3 +1,4 @@
+using BacklogOrganizer.Shared.Core.Reflection;
 using BacklogOrganizer.Shared.Core.Types;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +20,7 @@ public class DbInitializerService : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        var dbContextsTypes = AppDomain.CurrentDomain.GetAssemblies()
+        var dbContextsTypes = Assemblies.GetAllNonDynamic()
             .SelectMany(x => x.GetTypes())
             .Where(x => x.IsConcreteImplementationOf<DbContext>());
 

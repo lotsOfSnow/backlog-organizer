@@ -1,4 +1,5 @@
 using System.Reflection;
+using BacklogOrganizer.Shared.Core.Reflection;
 using BacklogOrganizer.Shared.Core.Types;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +25,7 @@ internal static class ModuleLoader
     // Assemblies are only loaded on first use, so not loading them explicitly will make it ignore all the referenced modules.
     private static IEnumerable<Assembly> LoadAssemblies(IConfiguration configuration)
     {
-        var alreadyLoadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+        var alreadyLoadedAssemblies = Assemblies.GetAll().ToList();
         var loadedAssembliesLocations = alreadyLoadedAssemblies.Where(x => !x.IsDynamic).Select(x => x.Location).ToArray();
 
         var notYetLoadedModulesDlls = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")

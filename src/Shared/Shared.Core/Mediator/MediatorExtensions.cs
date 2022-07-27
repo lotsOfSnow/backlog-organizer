@@ -1,4 +1,5 @@
 using BacklogOrganizer.Shared.Core.Mediator.Validation;
+using BacklogOrganizer.Shared.Core.Reflection;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,7 +9,7 @@ public static class MediatorExtensions
 {
     public static IServiceCollection AddMediatR(this IServiceCollection services)
     {
-        services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddMediatR(Assemblies.GetAllNonDynamic());
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         return services;
