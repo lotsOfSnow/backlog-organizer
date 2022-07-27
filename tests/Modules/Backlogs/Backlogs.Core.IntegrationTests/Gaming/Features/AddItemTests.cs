@@ -2,7 +2,7 @@ using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.AddItem;
 using Xunit.Abstractions;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Backlogs.Gaming.Features;
+namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Gaming.Features;
 
 public class AddBacklogItemTests : IClassFixture<BacklogsApplicationFactory>
 {
