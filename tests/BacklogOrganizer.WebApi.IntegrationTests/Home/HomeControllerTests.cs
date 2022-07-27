@@ -1,4 +1,5 @@
 using System.Net;
+using Xunit.Abstractions;
 
 namespace BacklogOrganizer.WebApi.IntegrationTests.Home;
 
@@ -6,8 +7,11 @@ public class HomeControllerTests : IClassFixture<WebApiApplicationFactory>
 {
     private readonly WebApiApplicationFactory _factory;
 
-    public HomeControllerTests(WebApiApplicationFactory factory)
-        => _factory = factory;
+    public HomeControllerTests(ITestOutputHelper testOutputHelper, WebApiApplicationFactory factory)
+    {
+        _factory = factory;
+        _factory.TestOutputHelper = testOutputHelper;
+    }
 
     [Fact]
     public async Task Returns_HTTP_OK()
