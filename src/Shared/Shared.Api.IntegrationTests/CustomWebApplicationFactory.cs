@@ -10,7 +10,6 @@ namespace BacklogOrganizer.Shared.Api.IntegrationTests;
 public abstract class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram>
     where TProgram : class
 {
-    private readonly Type? _dbContextType;
     private readonly string? _configurationFileName;
 
     public ITestOutputHelper? TestOutputHelper { get; set; }

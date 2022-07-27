@@ -4,5 +4,5 @@ public class SeqOptions
 {
     public const string SectionName = "seq";
 
-    public string ServerUrl { get; set; }
+    public string ServerUrl { get; set; } = null!;
 }
