@@ -1,9 +1,7 @@
 using BacklogOrganizer.Shared.Infrastructure.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Xunit.Abstractions;
 
@@ -17,22 +15,13 @@ public abstract class CustomWebApplicationFactory<TProgram> : WebApplicationFact
 
     public ITestOutputHelper? TestOutputHelper { get; set; }
 
-    protected CustomWebApplicationFactory(string? configurationFileName = "appsettings.test.json", Type? dbContextType = null)
+    protected CustomWebApplicationFactory(string? configurationFileName = "appsettings.test.json")
     {
         _configurationFileName = configurationFileName;
-        _dbContextType = dbContextType;
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.ConfigureServices(services =>
-        {
-            if (_dbContextType is not null)
-            {
-                RecreateDatabase(services);
-            }
-        });
-
         builder.ConfigureLogging(logging =>
         {
             logging
@@ -56,18 +45,5 @@ public abstract class CustomWebApplicationFactory<TProgram> : WebApplicationFact
             .Build();
 
         configurationBuilder.AddConfiguration(config);
-    }
-
-    private void RecreateDatabase(IServiceCollection services)
-    {
-        var sp = services.BuildServiceProvider();
-        using var scope = sp.CreateScope();
-        if (scope.ServiceProvider.GetRequiredService(_dbContextType!) is not DbContext db)
-        {
-            throw new InvalidOperationException($"Provided type '{_dbContextType}' can't be used as a DbContext");
-        }
-
-        db.Database.EnsureDeleted();
-        db.Database.EnsureCreated();
     }
 }

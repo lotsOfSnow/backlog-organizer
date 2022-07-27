@@ -8,11 +8,6 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests;
 
 public sealed class BacklogsApplicationFactory : CustomWebApplicationFactory<Program>
 {
-    public BacklogsApplicationFactory()
-        : base(dbContextType: typeof(BacklogsContext))
-    {
-    }
-
     public async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
     {
         await using var scope = Services.CreateAsyncScope();
