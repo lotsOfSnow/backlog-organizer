@@ -1,4 +1,5 @@
 using System.Reflection;
+using BacklogOrganizer.Shared.Core.Types;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -42,7 +43,7 @@ internal static class ModuleLoader
 
     private static IEnumerable<IModule> GetAllModules(IEnumerable<Assembly> assemblies)
         => assemblies.SelectMany(x => x.GetTypes())
-            .Where(x => typeof(IModule).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+            .Where(x => x.IsConcreteImplementationOf<IModule>())
             .OrderBy(x => x.Name)
             .Select(Activator.CreateInstance)
             .Cast<IModule>()
