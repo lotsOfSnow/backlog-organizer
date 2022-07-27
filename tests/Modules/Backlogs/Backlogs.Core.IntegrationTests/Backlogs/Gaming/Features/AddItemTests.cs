@@ -1,5 +1,6 @@
 using BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Gaming;
 using BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Gaming.Features.AddItem;
+using Xunit.Abstractions;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Backlogs.Gaming.Features;
 
@@ -7,8 +8,11 @@ public class AddBacklogItemTests : IClassFixture<BacklogsApplicationFactory>
 {
     private readonly BacklogsApplicationFactory _factory;
 
-    public AddBacklogItemTests(BacklogsApplicationFactory factory)
-        => _factory = factory;
+    public AddBacklogItemTests(ITestOutputHelper testOutputHelper, BacklogsApplicationFactory factory)
+    {
+        _factory = factory;
+        _factory.TestOutputHelper = testOutputHelper;
+    }
 
     [Fact]
     public async Task Can_create_backlog_item()

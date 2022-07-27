@@ -1,8 +1,11 @@
+using BacklogOrganizer.Shared.Infrastructure.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
+using Xunit.Abstractions;
 
 namespace BacklogOrganizer.Shared.Api.IntegrationTests;
 
@@ -11,6 +14,8 @@ public abstract class CustomWebApplicationFactory<TProgram> : WebApplicationFact
 {
     private readonly Type? _dbContextType;
     private readonly string? _configurationFileName;
+
+    public ITestOutputHelper? TestOutputHelper { get; set; }
 
     protected CustomWebApplicationFactory(string? configurationFileName = "appsettings.test.json", Type? dbContextType = null)
     {
@@ -26,6 +31,12 @@ public abstract class CustomWebApplicationFactory<TProgram> : WebApplicationFact
             {
                 RecreateDatabase(services);
             }
+        });
+
+        builder.ConfigureLogging(logging =>
+        {
+            logging
+                .UseSerilog(logging.Services, new ConfigurationManager(), conf => conf.WriteTo.TestOutput(TestOutputHelper));
         });
 
         builder.ConfigureAppConfiguration(configurationBuilder =>
