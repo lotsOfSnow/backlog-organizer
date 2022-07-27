@@ -1,7 +1,7 @@
 using Ardalis.GuardClauses;
 using BacklogOrganizer.Shared.Core;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.Backlogs;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Models;
 
 public abstract class BacklogItem : EntityBase
 {

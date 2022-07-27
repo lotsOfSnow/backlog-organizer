@@ -1,7 +1,7 @@
-using BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Data;
+using BacklogOrganizer.Modules.Backlogs.Core.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Gaming;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 
 public class GamingBacklogRepository : IGamingBacklogRepository
 {

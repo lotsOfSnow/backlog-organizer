@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Gaming.Features.AddItem;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.AddItem;
 
 public record AddBacklogItemCommand(Guid BacklogId, string Name) : IRequest
 {

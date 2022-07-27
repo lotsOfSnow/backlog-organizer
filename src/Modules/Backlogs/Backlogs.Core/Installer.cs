@@ -1,4 +1,4 @@
-using BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Gaming;
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core;

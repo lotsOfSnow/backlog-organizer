@@ -1,8 +1,8 @@
 using Ardalis.GuardClauses;
-using BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Exceptions;
+using BacklogOrganizer.Modules.Backlogs.Core.Exceptions;
 using BacklogOrganizer.Shared.Core;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.Backlogs;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Models;
 
 public class Backlog<TItem> : EntityBase, IAggregateRoot
     where TItem : BacklogItem
