@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Gaming.Features.AddItem;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.AddItem;
 
 [Route("backlogs/{id:guid}/gaming")]
 public class AddItemEndpoint : ControllerBase

@@ -1,4 +1,6 @@
-namespace BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Gaming;
+using BacklogOrganizer.Modules.Backlogs.Core.Models;
+
+namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 
 public class GamingBacklog : Backlog<GameBacklogItem>
 {

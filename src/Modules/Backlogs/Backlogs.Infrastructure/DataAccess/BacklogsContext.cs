@@ -1,5 +1,5 @@
-using BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Data;
-using BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Gaming;
+using BacklogOrganizer.Modules.Backlogs.Core.Data;
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 using Microsoft.EntityFrameworkCore;
 
 namespace BacklogOrganizer.Modules.Backlogs.Infrastructure.DataAccess;

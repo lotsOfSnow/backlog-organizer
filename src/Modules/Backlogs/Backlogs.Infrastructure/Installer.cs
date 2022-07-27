@@ -1,4 +1,4 @@
-using BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Data;
+using BacklogOrganizer.Modules.Backlogs.Core.Data;
 using BacklogOrganizer.Modules.Backlogs.Infrastructure.DataAccess;
 using BacklogOrganizer.Shared.Infrastructure.Postgres;
 using Microsoft.Extensions.Configuration;

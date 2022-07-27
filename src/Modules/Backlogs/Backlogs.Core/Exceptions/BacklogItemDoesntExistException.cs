@@ -1,4 +1,4 @@
-namespace BacklogOrganizer.Modules.Backlogs.Core.Backlogs.Exceptions;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Exceptions;
 
 public class BacklogItemDoesntExistException : Exception
 {
