@@ -1,5 +1,6 @@
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.AddItem;
+using BacklogOrganizer.Modules.Backlogs.Core.Models;
 using Xunit.Abstractions;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Gaming.Features;
@@ -26,5 +27,6 @@ public class AddBacklogItemTests : IClassFixture<BacklogsApplicationFactory>
         createdItem.Should().NotBeNull();
         createdItem!.Name.Should().Be(expectedName);
         createdItem.Id.Should().NotBe(default(Guid));
+        createdItem.CompletionStatusDetails.Status.Should().Be(ItemCompletionStatus.ToDo);
     }
 }
