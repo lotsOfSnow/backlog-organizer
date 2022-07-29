@@ -43,6 +43,24 @@ public abstract class CustomWebApplicationFactory<TProgram> : WebApplicationFact
             .AddEnvironmentVariables()
             .Build();
 
+        OverridePostgresConnectionStringForUniqueDatabaseName(config);
+
         configurationBuilder.AddConfiguration(config);
+    }
+
+    private static void OverridePostgresConnectionStringForUniqueDatabaseName(IConfiguration config)
+    {
+        var connectionStringSection = config.GetSection("postgres").GetSection("connectionString");
+
+        var connectionStringValue = connectionStringSection.Value;
+        if (string.IsNullOrEmpty(connectionStringValue))
+        {
+            return;
+        }
+
+        var endOfDbName = connectionStringValue.IndexOf(";Username", StringComparison.OrdinalIgnoreCase);
+        var newConnectionString = connectionStringValue.Insert(endOfDbName, $"-{Guid.NewGuid()}");
+
+        connectionStringSection.Value = newConnectionString;
     }
 }
