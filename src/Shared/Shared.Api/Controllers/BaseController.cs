@@ -1,9 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BacklogOrganizer.Shared.Infrastructure.ApiControllers;
+namespace BacklogOrganizer.Shared.Api.Controllers;
 
-[Route("/[controller]/[action]")]
 public abstract class BaseController : ControllerBase
 {
     protected IMediator Mediator { get; }

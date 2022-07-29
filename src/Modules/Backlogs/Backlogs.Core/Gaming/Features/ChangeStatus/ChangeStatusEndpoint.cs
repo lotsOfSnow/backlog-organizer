@@ -1,4 +1,4 @@
-using BacklogOrganizer.Shared.Infrastructure.ApiControllers;
+using BacklogOrganizer.Shared.Api.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
