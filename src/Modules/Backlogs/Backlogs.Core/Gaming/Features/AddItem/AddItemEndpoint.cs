@@ -1,21 +1,21 @@
+using BacklogOrganizer.Shared.Api.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.AddItem;
 
 [Route("backlogs/{id:guid}/gaming")]
-public class AddItemEndpoint : ControllerBase
+public class AddItemEndpoint : BaseController
 {
-    private readonly IMediator _mediator;
-
-    public AddItemEndpoint(IMediator mediator)
-        => _mediator = mediator;
+    public AddItemEndpoint(IMediator mediator) : base(mediator)
+    {
+    }
 
     [HttpPost]
     public async Task<Guid> AddItemAsync(Guid id, AddItemEndpointRequestContract request)
     {
         var command = request.CreateCommand(id);
-        await _mediator.Send(command);
+        await Mediator.Send(command);
         return command.AddedItemId!.Value;
     }
 }

@@ -7,11 +7,19 @@ public abstract class BacklogItem : EntityBase
 {
     public string Name { get; private set; }
 
-    public BacklogItem(string name)
+    public ItemCompletionStatusDetails CompletionStatusDetails { get; private set; }
+
+    protected BacklogItem(string name)
     {
         Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
+        CompletionStatusDetails = new(ItemCompletionStatus.ToDo);
     }
 
     public void UpdateName(string name)
         => Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
+
+    public void SetCompletionStatus(ItemCompletionStatus status)
+    {
+        CompletionStatusDetails = new(status);
+    }
 }

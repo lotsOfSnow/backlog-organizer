@@ -18,7 +18,7 @@ internal static class Installer
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(c => c.EnableAnnotations());
 
         return builder;
     }

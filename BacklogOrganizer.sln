@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Api.IntegrationTests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backlogs.Module", "src\Modules\Backlogs\Backlogs.Module\Backlogs.Module.csproj", "{6B7AF99B-13BC-4BDC-A91F-1D47659A2B86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Api", "src\Shared\Shared.Api\Shared.Api.csproj", "{85FB4243-9076-4F8D-934E-AF3900F2FD57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{6B7AF99B-13BC-4BDC-A91F-1D47659A2B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B7AF99B-13BC-4BDC-A91F-1D47659A2B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B7AF99B-13BC-4BDC-A91F-1D47659A2B86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85FB4243-9076-4F8D-934E-AF3900F2FD57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85FB4243-9076-4F8D-934E-AF3900F2FD57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85FB4243-9076-4F8D-934E-AF3900F2FD57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85FB4243-9076-4F8D-934E-AF3900F2FD57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +119,7 @@ Global
 		{8520B583-AB70-48AC-AD20-C221B7D1F37C} = {7FD118A4-83BA-4256-98F9-4E2D38C4F413}
 		{76D08F39-8937-4B3E-8006-CF9FFBF5C0B6} = {7FD118A4-83BA-4256-98F9-4E2D38C4F413}
 		{6B7AF99B-13BC-4BDC-A91F-1D47659A2B86} = {BAD3C88D-9C31-44D5-8A64-E903B8D683B3}
+		{85FB4243-9076-4F8D-934E-AF3900F2FD57} = {7FD118A4-83BA-4256-98F9-4E2D38C4F413}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {43240395-9127-464B-96F9-DA31EC6A4C38}
