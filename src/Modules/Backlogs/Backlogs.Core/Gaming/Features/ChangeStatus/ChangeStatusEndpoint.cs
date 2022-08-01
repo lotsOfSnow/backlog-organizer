@@ -17,7 +17,8 @@ public class ChangeStatusEndpoint : BaseController
         Summary = "Change status of a backlog item",
         OperationId = "changeGamingBacklogItemStatus",
         Tags = new[] { ApiTags.GamingBacklogItems })]
-    public async Task<ActionResult> ChangeStatus(Guid id, ChangeStatusEndpointRequest request)
+    [Consumes("application/x-www-form-urlencoded")]
+    public async Task<ActionResult> ChangeStatus(Guid id, [FromForm] ChangeStatusEndpointRequest request)
     {
         var command = new ChangeStatusCommand(request.BacklogId, id, request.NewStatus);
         await Mediator.Send(command);

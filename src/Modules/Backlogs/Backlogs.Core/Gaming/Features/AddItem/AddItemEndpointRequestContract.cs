@@ -1,7 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.AddItem;
 
-public record AddItemEndpointRequestContract(string Name)
-{
-    public AddBacklogItemCommand CreateCommand(Guid backlogId)
-        => new(backlogId, Name);
-}
+public record AddItemEndpointRequestContract([Required] Guid BacklogId, [Required] string Name);
