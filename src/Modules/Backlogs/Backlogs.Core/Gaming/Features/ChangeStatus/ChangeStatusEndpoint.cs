@@ -1,3 +1,4 @@
+using BacklogOrganizer.Modules.Backlogs.Core.Api;
 using BacklogOrganizer.Shared.Api.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
