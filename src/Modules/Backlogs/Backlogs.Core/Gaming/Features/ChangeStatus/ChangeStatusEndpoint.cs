@@ -1,3 +1,4 @@
+using BacklogOrganizer.Modules.Backlogs.Core.Api;
 using BacklogOrganizer.Shared.Api.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.ChangeStatus;
 
 [Route(ApiRoutes.GamingBacklogItems + "/{id:guid}" + "/change-status")]
+[ApiVersion(ApiVersions.V1)]
 public class ChangeStatusEndpoint : BaseController
 {
     public ChangeStatusEndpoint(IMediator mediator) : base(mediator)

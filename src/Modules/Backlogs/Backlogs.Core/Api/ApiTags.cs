@@ -1,4 +1,4 @@
-namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Api;
 
 public static class ApiTags
 {

@@ -1,3 +1,4 @@
+using BacklogOrganizer.Modules.Backlogs.Core.Api;
 using BacklogOrganizer.Shared.Api.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.AddItem;
 
 [Route(ApiRoutes.GamingBacklogItems)]
+[ApiVersion(ApiVersions.V1)]
 public class AddItemEndpoint : BaseController
 {
     public AddItemEndpoint(IMediator mediator) : base(mediator)
