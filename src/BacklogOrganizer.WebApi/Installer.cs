@@ -30,7 +30,7 @@ internal static class Installer
         services.AddApiVersioning(x =>
         {
             x.AssumeDefaultVersionWhenUnspecified = true;
-            x.DefaultApiVersion = new(2, 0);
+            x.DefaultApiVersion = new(1, 0);
             x.ReportApiVersions = true;
             x.ApiVersionReader = new UrlSegmentApiVersionReader();
         });
