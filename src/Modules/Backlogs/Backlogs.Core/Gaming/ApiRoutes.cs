@@ -2,5 +2,9 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 
 public static class ApiRoutes
 {
-    public const string GamingBacklogItems = "gaming-backlog-items";
+    private const string Base = "api";
+    private const string Version = "v{version:apiVersion}";
+    private const string VersionedBase = Base + "/" + Version;
+
+    public const string GamingBacklogItems = VersionedBase + "/" + "gaming-backlog-items";
 }

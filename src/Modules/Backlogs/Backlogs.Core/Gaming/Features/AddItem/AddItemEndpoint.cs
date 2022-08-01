@@ -6,6 +6,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.AddItem;
 
 [Route(ApiRoutes.GamingBacklogItems)]
+[ApiVersion("1.0")]
 public class AddItemEndpoint : BaseController
 {
     public AddItemEndpoint(IMediator mediator) : base(mediator)
