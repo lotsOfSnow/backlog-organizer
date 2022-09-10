@@ -6,7 +6,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.GetAllItems;
 
-[Route(ApiRoutes.GamingBacklogItems + "/{id:guid}")]
+[Route(ApiRoutes.GamingBacklogs + "/{id:guid}" + "/items")]
 [ApiVersion(ApiVersions.V1)]
 public class GetAllItemsEndpoint : BaseController
 {
@@ -18,7 +18,7 @@ public class GetAllItemsEndpoint : BaseController
     [SwaggerOperation(
         Summary = "Get all items of a backlog",
         OperationId = "getAllGamingBacklogItems",
-        Tags = new[] { ApiTags.GamingBacklogItems })]
+        Tags = new[] { ApiTags.GamingBacklogs })]
     public async Task<ActionResult<IEnumerable<GameBacklogItemDto>>> GetAllItems(Guid id)
     {
         var command = new GetAllItemsQuery(id);

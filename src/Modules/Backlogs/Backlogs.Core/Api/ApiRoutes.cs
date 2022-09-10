@@ -7,4 +7,6 @@ public static class ApiRoutes
     private const string VersionedBase = Base + "/" + Version;
 
     public const string GamingBacklogItems = VersionedBase + "/" + "gaming-backlog-items";
+
+    public const string GamingBacklogs = VersionedBase + "/" + "gaming-backlogs";
 }
