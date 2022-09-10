@@ -19,7 +19,7 @@ public class AddItemEndpoint : BaseController
         Summary = "Create a new backlog item",
         OperationId = "createGamingBacklogItem",
         Tags = new[] { ApiTags.GamingBacklogItems })]
-    [Consumes("application/x-www-form-urlencoded")]
+    [Consumes(FormMediaTypes.KeyValuePairs)]
     public async Task<Guid> AddItemAsync([FromForm] AddItemEndpointRequestContract request)
     {
         var command = new AddBacklogItemCommand(request.BacklogId, request.Name);
