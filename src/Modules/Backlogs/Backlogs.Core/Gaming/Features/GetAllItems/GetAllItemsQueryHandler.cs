@@ -27,6 +27,7 @@ public class GetAllItemsQueryHandler : IRequestHandler<GetAllItemsQuery, Result<
         if (backlog is null)
         {
             _logger.LogInformation("No backlog with Id {RequestBacklogId} found", request.BacklogId);
+
             return Result<IEnumerable<GameBacklogItemDto>>
                 .Failure(new(ErrorReason.ResourceNotFound, $"Backlog with Id {request.BacklogId} doesn't exist"));
         }
