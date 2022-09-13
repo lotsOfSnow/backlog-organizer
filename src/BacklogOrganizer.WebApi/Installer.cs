@@ -8,6 +8,8 @@ namespace BacklogOrganizer.WebApi;
 
 internal static class Installer
 {
+    public const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
     public static WebApplicationBuilder AddDependencies(this WebApplicationBuilder builder)
     {
         ModuleLoader.Load(builder.Services, builder.Configuration);
@@ -16,6 +18,18 @@ internal static class Installer
         builder.Services.AddSharedInfrastructure();
 
         builder.Logging.UseSerilog(builder.Services, builder.Configuration);
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(MyAllowSpecificOrigins,
+                policy =>
+                {
+                    policy
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+        });
 
         builder.Services.SetupVersioning();
         builder.Services.AddControllers();
