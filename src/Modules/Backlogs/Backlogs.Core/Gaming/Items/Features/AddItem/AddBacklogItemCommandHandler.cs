@@ -1,16 +1,13 @@
 using Ardalis.GuardClauses;
 using MediatR;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.AddItem;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.AddItem;
 
 public class AddBacklogItemCommandHandler : IRequestHandler<AddBacklogItemCommand>
 {
     private readonly IGamingBacklogRepository _repository;
 
-    public AddBacklogItemCommandHandler(IGamingBacklogRepository repository)
-    {
-        _repository = repository;
-    }
+    public AddBacklogItemCommandHandler(IGamingBacklogRepository repository) => _repository = repository;
 
     public async Task<Unit> Handle(AddBacklogItemCommand request, CancellationToken cancellationToken)
     {

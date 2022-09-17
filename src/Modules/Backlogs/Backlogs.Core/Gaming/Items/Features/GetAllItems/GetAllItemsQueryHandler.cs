@@ -4,7 +4,7 @@ using BacklogOrganizer.Shared.Core.Results.Errors;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.GetAllItems;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.GetAllItems;
 
 public class GetAllItemsQueryHandler : IRequestHandler<GetAllItemsQuery, Result<IEnumerable<GameBacklogItemDto>>>
 {

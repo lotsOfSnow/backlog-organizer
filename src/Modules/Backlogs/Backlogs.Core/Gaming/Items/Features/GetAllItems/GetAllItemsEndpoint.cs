@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.GetAllItems;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.GetAllItems;
 
 [Route(ApiRoutes.GamingBacklogs + "/{id:guid}" + "/items")]
 [ApiVersion(ApiVersions.V1)]

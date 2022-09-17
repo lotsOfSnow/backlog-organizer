@@ -27,4 +27,8 @@
     <InternalsVisibleTo Include="Backlogs.Module" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Gaming\Groups\Features" />
+  </ItemGroup>
+
 </Project>

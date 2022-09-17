@@ -1,3 +1,4 @@
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 using BacklogOrganizer.Modules.Backlogs.Core.Models;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming;

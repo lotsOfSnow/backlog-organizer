@@ -2,7 +2,7 @@ using Ardalis.GuardClauses;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.ChangeStatus;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.ChangeStatus;
 
 public class ChangeStatusCommandHandler : IRequestHandler<ChangeStatusCommand>
 {
