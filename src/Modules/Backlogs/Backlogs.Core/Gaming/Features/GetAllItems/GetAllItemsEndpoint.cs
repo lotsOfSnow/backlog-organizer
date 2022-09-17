@@ -18,7 +18,7 @@ public class GetAllItemsEndpoint : BaseController
     [SwaggerOperation(
         Summary = "Get all items of a backlog",
         OperationId = "getAllGamingBacklogItems",
-        Tags = new[] { ApiTags.GamingBacklogs })]
+        Tags = new[] { ApiTags.GamingBacklogItems })]
     public async Task<ActionResult<IEnumerable<GameBacklogItemDto>>> GetAllItems(Guid id)
     {
         var command = new GetAllItemsQuery(id);

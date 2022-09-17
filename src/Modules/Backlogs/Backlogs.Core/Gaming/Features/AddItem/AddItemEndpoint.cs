@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using BacklogOrganizer.Modules.Backlogs.Core.Api;
 using BacklogOrganizer.Shared.Api.Controllers;
 using MediatR;
@@ -19,8 +20,8 @@ public class AddItemEndpoint : BaseController
         Summary = "Create a new backlog item",
         OperationId = "createGamingBacklogItem",
         Tags = new[] { ApiTags.GamingBacklogItems })]
-    [Consumes(FormMediaTypes.KeyValuePairs)]
-    public async Task<Guid> AddItemAsync([FromForm] AddItemEndpointRequestContract request)
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<Guid> AddItemAsync(AddItemEndpointRequestContract request)
     {
         var command = new AddBacklogItemCommand(request.BacklogId, request.Name);
         await Mediator.Send(command);
