@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using BacklogOrganizer.Modules.Backlogs.Core.Api;
 using BacklogOrganizer.Shared.Api.Controllers;
 using MediatR;
@@ -19,7 +20,7 @@ public class ChangeStatusEndpoint : BaseController
         Summary = "Change status of a backlog item",
         OperationId = "changeGamingBacklogItemStatus",
         Tags = new[] { ApiTags.GamingBacklogItems })]
-    [Consumes(FormMediaTypes.KeyValuePairs)]
+    [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> ChangeStatus(Guid id, [FromForm] ChangeStatusEndpointRequest request)
     {
         var command = new ChangeStatusCommand(request.BacklogId, id, request.NewStatus);
