@@ -15,9 +15,7 @@ public abstract class CustomWebApplicationFactory<TProgram> : WebApplicationFact
     public ITestOutputHelper? TestOutputHelper { get; set; }
 
     protected CustomWebApplicationFactory(string? configurationFileName = "appsettings.test.json")
-    {
-        _configurationFileName = configurationFileName;
-    }
+        => _configurationFileName = configurationFileName;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {

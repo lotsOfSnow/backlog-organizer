@@ -11,8 +11,8 @@ public class AddBacklogItemCommandHandler : IRequestHandler<AddBacklogItemComman
 
     public async Task<Unit> Handle(AddBacklogItemCommand request, CancellationToken cancellationToken)
     {
-        // TODO: Support multiple backlogs, validate that it found the right one.
-        var backlog = await _repository.GetAsync(GamingBacklog.InstanceId, cancellationToken);
+        // TODO: Validate that it found the right one.
+        var backlog = await _repository.GetAsync(request.BacklogId, cancellationToken);
 
         Guard.Against.Null(backlog, nameof(backlog));
 
