@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.AddItem;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.AddItem;
 
 [Route(ApiRoutes.GamingBacklogItems)]
 [ApiVersion(ApiVersions.V1)]

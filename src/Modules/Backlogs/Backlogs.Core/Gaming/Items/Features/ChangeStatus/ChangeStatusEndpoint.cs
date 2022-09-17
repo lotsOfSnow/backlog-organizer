@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.ChangeStatus;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.ChangeStatus;
 
 [Route(ApiRoutes.GamingBacklogItems + "/{id:guid}" + "/change-status")]
 [ApiVersion(ApiVersions.V1)]

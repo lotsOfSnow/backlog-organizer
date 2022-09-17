@@ -1,10 +1,11 @@
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
-using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.AddItem;
-using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.ChangeStatus;
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.AddItem;
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.ChangeStatus;
 using BacklogOrganizer.Modules.Backlogs.Core.Models;
 using Xunit.Abstractions;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Gaming.Features;
+namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Gaming.Items.Features;
 
 public class ChangeStatusTests : IClassFixture<BacklogsApplicationFactory>
 {

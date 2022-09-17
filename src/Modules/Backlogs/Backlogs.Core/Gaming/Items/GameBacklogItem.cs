@@ -1,6 +1,6 @@
 using BacklogOrganizer.Modules.Backlogs.Core.Models;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 
 public class GameBacklogItem : BacklogItem
 {
