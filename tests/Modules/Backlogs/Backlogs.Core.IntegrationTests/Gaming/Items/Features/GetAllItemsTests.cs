@@ -1,10 +1,10 @@
-using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.AddItem;
-using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.GetAllItems;
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.AddItem;
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.GetAllItems;
 using BacklogOrganizer.Shared.Api.IntegrationTests.Assertions;
 using BacklogOrganizer.Shared.Core.Results.Errors;
 using Xunit.Abstractions;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Gaming.Features;
+namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Gaming.Items.Features;
 
 public class GetAllItemsTests : IClassFixture<BacklogsApplicationFactory>
 {
