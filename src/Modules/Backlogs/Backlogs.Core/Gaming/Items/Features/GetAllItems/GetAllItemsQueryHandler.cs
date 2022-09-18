@@ -1,6 +1,5 @@
 using BacklogOrganizer.Modules.Backlogs.Core.Data;
 using BacklogOrganizer.Shared.Core.Results;
-using BacklogOrganizer.Shared.Core.Results.Errors;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +21,7 @@ public class GetAllItemsQueryHandler : IRequestHandler<GetAllItemsQuery, Result<
         if (backlog is null)
         {
             return Result<IEnumerable<GameBacklogItemDto>>
-                .Failure(new(ErrorReason.ResourceNotFound, $"Backlog with Id {request.BacklogId} doesn't exist"));
+                .Failure(GamingBacklogResultErrors.BacklogNotFound(request.BacklogId));
         }
 
         var mappedItems = backlog

@@ -18,7 +18,6 @@ public class CreateGroupTests : IClassFixture<BacklogsApplicationFactory>
     public async Task Can_create_group()
     {
         const string expectedName = "Test group";
-
         var backlog = await _factory.GetNewBacklogAsync();
         var request = new CreateGroupCommand(backlog.Id, expectedName);
 

@@ -1,5 +1,4 @@
 using BacklogOrganizer.Shared.Core.Results;
-using BacklogOrganizer.Shared.Core.Results.Errors;
 using MediatR;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.CreateGroup;
@@ -17,7 +16,7 @@ public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Res
 
         if (backlog is null)
         {
-            return Result<GameBacklogItemsGroupDto>.Failure(new(ErrorReason.ResourceNotFound, $"Backlog with Id of {request.BacklogId} doesn't exist"));
+            return Result<GameBacklogItemsGroupDto>.Failure(GamingBacklogResultErrors.BacklogNotFound(request.BacklogId));
         }
 
         var group = new GameBacklogItemsGroup(request.Name);
