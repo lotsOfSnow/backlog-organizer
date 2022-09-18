@@ -5,4 +5,6 @@ public static class ApiTags
     public const string GamingBacklogItems = "GamingBacklogItems";
 
     public const string GamingBacklogs = "GamingBacklogs";
+
+    public const string GamingBacklogGroups = "GamingBacklogGroups";
 }
