@@ -31,6 +31,8 @@ public class AddItemsToGroupCommandHandler : IRequestHandler<AddItemsToGroupComm
 
         group.AddItems(items);
 
+        await _repository.SaveChangesAsync();
+
         return Result<Unit>.Success(Unit.Value);
     }
 }

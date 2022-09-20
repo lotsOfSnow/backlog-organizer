@@ -7,7 +7,7 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.Models;
 public class Backlog<TItem> : EntityBase, IAggregateRoot
     where TItem : BacklogItem
 {
-    private readonly List<TItem> _items = null!;
+    private readonly List<TItem> _items = new();
 
     public IEnumerable<TItem> Items => _items.AsReadOnly();
 
@@ -20,7 +20,7 @@ public class Backlog<TItem> : EntityBase, IAggregateRoot
 
     public void RemoveItem(Guid itemId)
     {
-        var item = _items.FirstOrDefault(x => x.Id == itemId);
+        var item = _items.Find(x => x.Id == itemId);
 
         if (item is null)
         {
