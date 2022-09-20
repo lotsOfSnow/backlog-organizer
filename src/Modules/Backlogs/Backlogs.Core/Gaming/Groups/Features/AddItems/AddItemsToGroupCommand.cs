@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.AddItems;
 
-public record AddItemsToGroupCommand(Guid BacklogId, Guid GroupId, ICollection<Guid> Items) : IRequest<Result<Unit>>;
+public record AddItemsToGroupCommand(Guid BacklogId, Guid GroupId, IEnumerable<Guid> Items) : IRequest<Result<Unit>>;
 
 public class AddItemsToGroupCommandHandler : IRequestHandler<AddItemsToGroupCommand, Result<Unit>>
 {
@@ -31,7 +31,7 @@ public class AddItemsToGroupCommandHandler : IRequestHandler<AddItemsToGroupComm
 
         group.AddItems(items);
 
-        await _repository.SaveChangesAsync();
+        await _repository.SaveChangesAsync(cancellationToken);
 
         return Result<Unit>.Success(Unit.Value);
     }
