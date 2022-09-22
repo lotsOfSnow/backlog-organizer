@@ -16,11 +16,25 @@ public class GamingBacklog : Backlog<GameBacklogItem>
 
     public void AddGroup(GameBacklogItemsGroup group)
     {
-        if (_groups.Any(x => x.Name == group.Name))
+        if (Groups.Any(x => x.Name == group.Name || x.Id == group.Id))
         {
-            throw new GroupAlreadyExistsException();
+            throw new GroupAlreadyExistsException(group.Name);
         }
 
         _groups.Add(group);
+    }
+
+    public void AddItemsToGroup(Guid groupId, IEnumerable<Guid> itemIds)
+    {
+        var group = Groups.SingleOrDefault(x => x.Id == groupId);
+
+        if (group is null)
+        {
+            throw new GroupNotFoundException(groupId);
+        }
+
+        var itemsToAdd = Items.Where(x => itemIds.Contains(x.Id)).ToArray();
+
+        group.AddItems(itemsToAdd);
     }
 }

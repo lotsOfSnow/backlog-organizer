@@ -1,4 +1,5 @@
-﻿using BacklogOrganizer.Shared.Core.Results;
+﻿using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Exceptions;
+using BacklogOrganizer.Shared.Core.Results;
 using MediatR;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.AddItems;
@@ -20,16 +21,14 @@ public class AddItemsToGroupCommandHandler : IRequestHandler<AddItemsToGroupComm
             return Result<Unit>.Failure(GamingBacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
         }
 
-        var group = backlog.Groups.FirstOrDefault(x => x.Id == request.GroupId);
-
-        if (group is null)
+        try
+        {
+            backlog.AddItemsToGroup(request.GroupId, request.Items);
+        }
+        catch (GroupNotFoundException)
         {
             return Result<Unit>.Failure(GamingBacklogResultErrors.GetGroupNotFoundError(request.BacklogId, request.GroupId));
         }
-
-        var items = backlog.Items.Where(x => request.Items.Contains(x.Id)).ToArray();
-
-        group.AddItems(items);
 
         await _repository.SaveChangesAsync(cancellationToken);
 

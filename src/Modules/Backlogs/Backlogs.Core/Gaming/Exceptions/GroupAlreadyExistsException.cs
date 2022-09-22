@@ -1,15 +1,12 @@
-﻿namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Exceptions;
-public class GroupAlreadyExistsException : Exception
+﻿using BacklogOrganizer.Shared.Core.Exceptions;
+
+namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Exceptions;
+public class GroupAlreadyExistsException : CustomException
 {
-    public GroupAlreadyExistsException() : base()
-    {
-    }
+    public string Name { get; }
 
-    public GroupAlreadyExistsException(string? message) : base(message)
+    public GroupAlreadyExistsException(string name)
     {
-    }
-
-    public GroupAlreadyExistsException(string? message, Exception? innerException) : base(message, innerException)
-    {
+        Name = name;
     }
 }
