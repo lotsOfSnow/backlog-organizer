@@ -13,25 +13,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{8F9367
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56649A2E-7B94-4CC6-B327-BE35FF272E39}"
 	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{962F5CD0-0A61-4A53-90BD-87418768C92C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{73F1C847-6138-4D20-B312-E61177A8D60A}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\dotnet-build.yml = .github\workflows\dotnet-build.yml
 		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
+		.github\workflows\dotnet-build.yml = .github\workflows\dotnet-build.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backlogs.Core", "src\Modules\Backlogs\Backlogs.Core\Backlogs.Core.csproj", "{AC1C925C-F865-49D5-B648-C634CF394545}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backlogs.Core", "src\Modules\Backlogs\Backlogs.Core\Backlogs.Core.csproj", "{AC1C925C-F865-49D5-B648-C634CF394545}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backlogs.Infrastructure", "src\Modules\Backlogs\Backlogs.Infrastructure\Backlogs.Infrastructure.csproj", "{2102C8F2-C02C-4E69-BC1B-1EF154F26F06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backlogs.Infrastructure", "src\Modules\Backlogs\Backlogs.Infrastructure\Backlogs.Infrastructure.csproj", "{2102C8F2-C02C-4E69-BC1B-1EF154F26F06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backlogs.Core.IntegrationTests", "tests\Modules\Backlogs\Backlogs.Core.IntegrationTests\Backlogs.Core.IntegrationTests.csproj", "{2155A518-73CB-45B0-8E1D-A01E6E057391}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backlogs.Core.IntegrationTests", "tests\Modules\Backlogs\Backlogs.Core.IntegrationTests\Backlogs.Core.IntegrationTests.csproj", "{2155A518-73CB-45B0-8E1D-A01E6E057391}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backlogs.Core.UnitTests", "tests\Modules\Backlogs\Backlogs.Core.UnitTests\Backlogs.Core.UnitTests.csproj", "{681871F0-C8A3-493D-9A26-D8055BB7DF31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backlogs.Core.UnitTests", "tests\Modules\Backlogs\Backlogs.Core.UnitTests\Backlogs.Core.UnitTests.csproj", "{681871F0-C8A3-493D-9A26-D8055BB7DF31}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{36EB0D26-9036-4FEB-84EA-830D3C1F9C69}"
 EndProject
@@ -39,15 +39,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backlogs", "Backlogs", "{BA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{7FD118A4-83BA-4256-98F9-4E2D38C4F413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Core", "src\Shared\Shared.Core\Shared.Core.csproj", "{436AC8DF-F522-47CB-8D1E-C2DBA2BCAECC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Core", "src\Shared\Shared.Core\Shared.Core.csproj", "{436AC8DF-F522-47CB-8D1E-C2DBA2BCAECC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Infrastructure", "src\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj", "{8520B583-AB70-48AC-AD20-C221B7D1F37C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Infrastructure", "src\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj", "{8520B583-AB70-48AC-AD20-C221B7D1F37C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Api.IntegrationTests", "src\Shared\Shared.Api.IntegrationTests\Shared.Api.IntegrationTests.csproj", "{76D08F39-8937-4B3E-8006-CF9FFBF5C0B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Api.IntegrationTests", "src\Shared\Shared.Api.IntegrationTests\Shared.Api.IntegrationTests.csproj", "{76D08F39-8937-4B3E-8006-CF9FFBF5C0B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backlogs.Module", "src\Modules\Backlogs\Backlogs.Module\Backlogs.Module.csproj", "{6B7AF99B-13BC-4BDC-A91F-1D47659A2B86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backlogs.Module", "src\Modules\Backlogs\Backlogs.Module\Backlogs.Module.csproj", "{6B7AF99B-13BC-4BDC-A91F-1D47659A2B86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Api", "src\Shared\Shared.Api\Shared.Api.csproj", "{85FB4243-9076-4F8D-934E-AF3900F2FD57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Api", "src\Shared\Shared.Api\Shared.Api.csproj", "{85FB4243-9076-4F8D-934E-AF3900F2FD57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Core.UnitTests", "src\Shared\Shared.Core.UnitTests\Shared.Core.UnitTests.csproj", "{87469AD5-40D2-4F91-8FE0-D10737BF00E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,10 @@ Global
 		{85FB4243-9076-4F8D-934E-AF3900F2FD57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85FB4243-9076-4F8D-934E-AF3900F2FD57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85FB4243-9076-4F8D-934E-AF3900F2FD57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87469AD5-40D2-4F91-8FE0-D10737BF00E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87469AD5-40D2-4F91-8FE0-D10737BF00E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87469AD5-40D2-4F91-8FE0-D10737BF00E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87469AD5-40D2-4F91-8FE0-D10737BF00E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,18 +114,19 @@ Global
 		{1D5E6A56-FEDE-471F-B991-53EED63A3072} = {8F936714-F2E2-42D1-A4C4-BF0D2E2E3251}
 		{8F936714-F2E2-42D1-A4C4-BF0D2E2E3251} = {89DABE22-6CD8-49B7-9C9E-2FEE57985EB3}
 		{73F1C847-6138-4D20-B312-E61177A8D60A} = {962F5CD0-0A61-4A53-90BD-87418768C92C}
-		{36EB0D26-9036-4FEB-84EA-830D3C1F9C69} = {89DABE22-6CD8-49B7-9C9E-2FEE57985EB3}
-		{BAD3C88D-9C31-44D5-8A64-E903B8D683B3} = {36EB0D26-9036-4FEB-84EA-830D3C1F9C69}
-		{2155A518-73CB-45B0-8E1D-A01E6E057391} = {BAD3C88D-9C31-44D5-8A64-E903B8D683B3}
-		{681871F0-C8A3-493D-9A26-D8055BB7DF31} = {BAD3C88D-9C31-44D5-8A64-E903B8D683B3}
 		{AC1C925C-F865-49D5-B648-C634CF394545} = {BAD3C88D-9C31-44D5-8A64-E903B8D683B3}
 		{2102C8F2-C02C-4E69-BC1B-1EF154F26F06} = {BAD3C88D-9C31-44D5-8A64-E903B8D683B3}
+		{2155A518-73CB-45B0-8E1D-A01E6E057391} = {BAD3C88D-9C31-44D5-8A64-E903B8D683B3}
+		{681871F0-C8A3-493D-9A26-D8055BB7DF31} = {BAD3C88D-9C31-44D5-8A64-E903B8D683B3}
+		{36EB0D26-9036-4FEB-84EA-830D3C1F9C69} = {89DABE22-6CD8-49B7-9C9E-2FEE57985EB3}
+		{BAD3C88D-9C31-44D5-8A64-E903B8D683B3} = {36EB0D26-9036-4FEB-84EA-830D3C1F9C69}
 		{7FD118A4-83BA-4256-98F9-4E2D38C4F413} = {89DABE22-6CD8-49B7-9C9E-2FEE57985EB3}
 		{436AC8DF-F522-47CB-8D1E-C2DBA2BCAECC} = {7FD118A4-83BA-4256-98F9-4E2D38C4F413}
 		{8520B583-AB70-48AC-AD20-C221B7D1F37C} = {7FD118A4-83BA-4256-98F9-4E2D38C4F413}
 		{76D08F39-8937-4B3E-8006-CF9FFBF5C0B6} = {7FD118A4-83BA-4256-98F9-4E2D38C4F413}
 		{6B7AF99B-13BC-4BDC-A91F-1D47659A2B86} = {BAD3C88D-9C31-44D5-8A64-E903B8D683B3}
 		{85FB4243-9076-4F8D-934E-AF3900F2FD57} = {7FD118A4-83BA-4256-98F9-4E2D38C4F413}
+		{87469AD5-40D2-4F91-8FE0-D10737BF00E7} = {7FD118A4-83BA-4256-98F9-4E2D38C4F413}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {43240395-9127-464B-96F9-DA31EC6A4C38}
