@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.17.0" />
     <PackageReference Include="FluentAssertions" Version="6.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -26,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\src\Modules\Backlogs\Backlogs.Core\Backlogs.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Shared\Shared.Core.UnitTests\Shared.Core.UnitTests.csproj" />
   </ItemGroup>
 
 </Project>
