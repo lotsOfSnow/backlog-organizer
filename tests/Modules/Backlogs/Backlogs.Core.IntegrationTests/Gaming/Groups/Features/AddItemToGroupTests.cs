@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+﻿using System.Reflection;
+using AutoFixture;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.AddItems;
@@ -37,29 +38,16 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
 
         result.Should().BeSuccessful();
 
-        await _factory.ExecuteDbContextAsync(async (db) =>
-        {
-            var b = await db.Set<GamingBacklog>().FirstAsync(x => x.Id == backlog.Id);
-        });
-
-
-        //groupAfterCommand.Items.Should().BeEquivalentTo(expectedContents);
-
         // TODO: Query to check if it worked.
-    }
-
-    [Fact]
-    public async Task Can_not_add_item_to_group_if_item_does_not_exist_within_backlog()
-    {
-        var itemThatExistsInOtherBacklog = new GameBacklogItem("Item 1");
-        var (backlogWithItem, _) = await SetupBacklogWithGroup((backlog) => backlog.AddItem(itemThatExistsInOtherBacklog));
-        var (emptyBacklog, groupOfEmptyBacklog) = await SetupBacklogWithGroup((_) => { });
-
-        var request = new AddItemsToGroupCommand(emptyBacklog.Id, groupOfEmptyBacklog.Id, new[] { itemThatExistsInOtherBacklog.Id });
-        var result = await _factory.SendAsync(request);
-
-        result.Should().BeSuccessful();
-        //groupAfterCommand.Items.Should().BeEmpty();
+        await AssertAssignments(backlog.Id, assignments =>
+        {
+            assignments.Should().HaveCount(3);
+            for (var i = 0; i < items.Count; i++)
+            {
+                var assignment = assignments.Single(x => x.ItemId == items[i].Id);
+                assignment.GroupId.Should().Be(group.Id);
+            }
+        });
     }
 
     [Fact]
@@ -70,13 +58,18 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
 
         var request = new AddItemsToGroupCommand(emptyBacklog.Id, groupOfEmptyBacklog.Id, new[] { nonexistentItemId });
         var result = await _factory.SendAsync(request);
-
         result.Should().BeSuccessful();
+
+        // TODO: Query to check if it worked.
+        await AssertAssignments(emptyBacklog.Id, assignments =>
+        {
+            assignments.Should().BeEmpty();
+        });
     }
+
     public async Task<(GamingBacklog Backlog, GameBacklogItemsGroup Group)> SetupBacklogWithGroup(Action<GamingBacklog> action)
     {
         var backlog = new GamingBacklog();
-        // TODO: Incorrect, backlog has wrong ID
         var group = new GameBacklogItemsGroup(Guid.NewGuid(), backlog.Id, "Test groupOfEmptyBacklog");
         backlog.AddGroup(group);
 
@@ -89,5 +82,18 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
         });
 
         return (backlog, group);
+    }
+
+    public async Task AssertAssignments(Guid backlogId, Action<IReadOnlyList<GroupAssignment>> action)
+    {
+        // TODO: Just temporary until there's a query available.
+        await _factory.ExecuteDbContextAsync(async (db) =>
+        {
+            var backlogAfterSaving = await db.Set<GamingBacklog>().FirstAsync(x => x.Id == backlogId);
+            var groups = (IEnumerable<GameBacklogItemsGroup>)backlogAfterSaving.GetType().GetField("_groups", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(backlogAfterSaving);
+            var group = groups.First();
+            var assignments = ((IEnumerable<GroupAssignment>)group.GetType().GetField("_assignments", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(group)).ToList();
+            action(assignments);
+        });
     }
 }
