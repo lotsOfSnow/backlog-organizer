@@ -6,7 +6,7 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 
 public class GameBacklogItemsGroup : EntityBase
 {
-    private readonly HashSet<GameBacklogItem> _items = new();
+    private readonly HashSet<GroupAssignment> _assignments = new();
 
     public Guid BacklogId { get; private set; }
 
@@ -31,7 +31,13 @@ public class GameBacklogItemsGroup : EntityBase
 
     private void AddItem(GameBacklogItem item)
     {
-        if (_items.Add(item))
+        var assignment = new GroupAssignment(Id, item.Id)
+        {
+            Item = item,
+            Group = this
+        };
+
+        if (_assignments.Add(assignment))
         {
             AddDomainEvent(new NewItemAddedDomainEvent(Id, item.Id));
         }

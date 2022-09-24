@@ -22,9 +22,14 @@ public class GameBacklogItemsGroupTests
             Id = Guid.NewGuid()
         };
 
+        var item3 = new GameBacklogItem("Item3")
+        {
+            Id = item2.Id
+        };
+
         var expectedItems = new GameBacklogItem[] { item, item2 };
 
-        group.AddItems(item, item, item2);
+        group.AddItems(item, item, item2, item3);
 
         var events = group.AssertPublishedDomainEvents<NewItemAddedDomainEvent>();
         events.Should().HaveCount(2);
