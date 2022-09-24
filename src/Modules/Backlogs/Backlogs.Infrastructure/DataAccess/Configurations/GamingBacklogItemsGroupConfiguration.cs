@@ -9,6 +9,8 @@ public class GamingBacklogItemsGroupConfiguration : IEntityTypeConfiguration<Gam
 {
     public void Configure(EntityTypeBuilder<GameBacklogItemsGroup> builder)
     {
+        builder.Property(x => x.Id).ValueGeneratedNever();
+
         builder.OwnsMany<GroupAssignment>("_assignments", assignments =>
         {
             assignments.WithOwner().HasForeignKey(x => x.GroupId);
