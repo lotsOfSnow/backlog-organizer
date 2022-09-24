@@ -41,7 +41,7 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
         // TODO: Query to check if it worked.
         await AssertAssignments(backlog.Id, assignments =>
         {
-            assignments.Should().HaveCount(3);
+            assignments.Should().HaveCount(items.Count);
             for (var i = 0; i < items.Count; i++)
             {
                 var assignment = assignments.Single(x => x.ItemId == items[i].Id);
@@ -70,7 +70,7 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
     public async Task<(GamingBacklog Backlog, GameBacklogItemsGroup Group)> SetupBacklogWithGroup(Action<GamingBacklog> action)
     {
         var backlog = new GamingBacklog();
-        var group = new GameBacklogItemsGroup(Guid.NewGuid(), backlog.Id, "Test groupOfEmptyBacklog");
+        var group = new GameBacklogItemsGroup(Guid.NewGuid(), backlog.Id, "Test group");
         backlog.AddGroup(group);
 
         action(backlog);

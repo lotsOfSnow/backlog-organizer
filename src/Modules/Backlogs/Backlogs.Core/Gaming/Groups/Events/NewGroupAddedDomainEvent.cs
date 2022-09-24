@@ -3,14 +3,13 @@
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Events;
 public class NewGroupAddedDomainEvent : DomainEventBase
 {
-    public NewGroupAddedDomainEvent(Guid backlogId, string groupName)
+    public NewGroupAddedDomainEvent(Guid backlogId, Guid groupId)
     {
         BacklogId = backlogId;
-        GroupName = groupName;
+        GroupId = groupId;
     }
 
     public Guid BacklogId { get; }
 
-    public string GroupName { get; }
-
+    public Guid GroupId { get; }
 }

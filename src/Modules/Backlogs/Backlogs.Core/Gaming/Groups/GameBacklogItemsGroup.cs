@@ -16,7 +16,7 @@ public class GameBacklogItemsGroup : EntityBase
         BacklogId = backlogId;
         Name = name;
 
-        AddDomainEvent(new NewGroupAddedDomainEvent(BacklogId, Name));
+        AddDomainEvent(new NewGroupAddedDomainEvent(BacklogId, id));
     }
 
     public string Name { get; private set; }
