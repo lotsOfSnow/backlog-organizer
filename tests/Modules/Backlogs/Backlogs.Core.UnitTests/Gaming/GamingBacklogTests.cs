@@ -23,7 +23,7 @@ public class GamingBacklogTests
 
         backlog.AddItemsToGroup(group.Id, items.Select(x => x.Id));
 
-        var events = backlog.AssertPublishedDomainEvents<NewItemAddedDomainEvent>();
+        var events = backlog.AssertPublishedDomainEvents<NewGroupAssignmentCreatedDomainEvent>();
         events.Should().HaveCount(items.Count);
         events.Should().OnlyContain(x => x.GroupId == group.Id);
         for (var i = 0; i < items.Count; i++)
@@ -40,7 +40,7 @@ public class GamingBacklogTests
 
         emptyBacklog.AddItemsToGroup(groupOfEmptyBacklog.Id, new[] { itemThatDoesNotExistInBacklog.Id });
 
-        emptyBacklog.AssertDomainEventNotPublished<NewItemAddedDomainEvent>();
+        emptyBacklog.AssertDomainEventNotPublished<NewGroupAssignmentCreatedDomainEvent>();
     }
 
     public static (GamingBacklog Backlog, GameBacklogItemsGroup Group) SetupBacklogWithGroup(Action<GamingBacklog>? action = null)

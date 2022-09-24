@@ -1,19 +1,8 @@
-using BacklogOrganizer.Shared.Core.Domain;
-
 namespace BacklogOrganizer.Shared.Core;
 
-public class EntityBase : IEquatable<EntityBase>
+public class EntityBase : Entity, IEquatable<EntityBase>
 {
-    private readonly List<IDomainEvent> _domainEvents = new();
-
     public Guid Id { get; set; }
-
-    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
-
-    public void AddDomainEvent(IDomainEvent @event)
-    {
-        _domainEvents.Add(@event);
-    }
 
     public bool Equals(EntityBase? other)
         => other?.Id == Id;

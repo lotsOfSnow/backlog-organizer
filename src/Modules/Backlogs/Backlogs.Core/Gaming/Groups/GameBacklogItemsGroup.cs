@@ -31,15 +31,11 @@ public class GameBacklogItemsGroup : EntityBase
 
     private void AddItem(GameBacklogItem item)
     {
-        var assignment = new GroupAssignment(Id, item.Id)
-        {
-            Item = item,
-            Group = this
-        };
+        var assignment = GroupAssignment.Create(Id, item.Id);
 
         if (_assignments.Add(assignment))
         {
-            AddDomainEvent(new NewItemAddedDomainEvent(Id, item.Id));
+            AddDomainEvent(new NewGroupAssignmentCreatedDomainEvent(Id, item.Id));
         }
     }
 }

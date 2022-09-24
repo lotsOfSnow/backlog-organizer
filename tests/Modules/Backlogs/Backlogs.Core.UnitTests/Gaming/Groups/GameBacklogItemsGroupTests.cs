@@ -31,7 +31,7 @@ public class GameBacklogItemsGroupTests
 
         group.AddItems(item, item, item2, item3);
 
-        var events = group.AssertPublishedDomainEvents<NewItemAddedDomainEvent>();
+        var events = group.AssertPublishedDomainEvents<NewGroupAssignmentCreatedDomainEvent>();
         events.Should().HaveCount(2);
         events.Should().OnlyContain(x => x.GroupId == group.Id);
         events[0].ItemId.Should().Be(item.Id);

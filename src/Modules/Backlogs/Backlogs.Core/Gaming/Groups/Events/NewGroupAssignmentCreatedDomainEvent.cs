@@ -2,9 +2,9 @@
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Events;
 
-public class NewItemAddedDomainEvent : DomainEventBase
+public class NewGroupAssignmentCreatedDomainEvent : DomainEventBase
 {
-    public NewItemAddedDomainEvent(Guid groupId, Guid itemId)
+    public NewGroupAssignmentCreatedDomainEvent(Guid groupId, Guid itemId)
     {
         GroupId = groupId;
         ItemId = itemId;
