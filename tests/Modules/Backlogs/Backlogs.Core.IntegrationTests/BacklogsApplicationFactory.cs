@@ -29,7 +29,7 @@ public sealed class BacklogsApplicationFactory : CustomWebApplicationFactory<Pro
     }
 
     public async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues)
-        where TEntity : EntityBase
+        where TEntity : GuidIdEntity
     {
         await using var scope = Services.CreateAsyncScope();
         var context = scope.ServiceProvider.GetRequiredService<BacklogsContext>();

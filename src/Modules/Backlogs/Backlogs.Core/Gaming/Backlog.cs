@@ -9,7 +9,7 @@ using BacklogOrganizer.Shared.Core.Domain.Entities;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 
-public class Backlog : EntityBase, IAggregateRoot
+public class Backlog : GuidIdEntity, IAggregateRoot
 {
     public static readonly Guid InstanceId = new("6c24c264-c53d-4f44-adc4-26560e790a73");
 
@@ -19,8 +19,8 @@ public class Backlog : EntityBase, IAggregateRoot
     public IEnumerable<BacklogItem> Items => _items.ToList().AsReadOnly();
 
     public Backlog(Guid id)
+        : base(id)
     {
-        Id = id;
     }
 
     public void AddItem(BacklogItem item)

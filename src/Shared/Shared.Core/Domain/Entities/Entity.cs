@@ -2,7 +2,7 @@
 
 namespace BacklogOrganizer.Shared.Core.Domain.Entities;
 
-public class Entity
+public abstract class Entity
 {
     private readonly List<IDomainEvent> _domainEvents = new();
 

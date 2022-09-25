@@ -4,15 +4,15 @@ using BacklogOrganizer.Shared.Core.Domain.Entities;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 
-public class BacklogGroup : EntityBase
+public class BacklogGroup : GuidIdEntity
 {
     private readonly HashSet<GroupAssignment> _assignments = new();
 
     public Guid BacklogId { get; private set; }
 
     public BacklogGroup(Guid id, Guid backlogId, string name)
+        : base(id)
     {
-        Id = id;
         BacklogId = backlogId;
         Name = name;
 
