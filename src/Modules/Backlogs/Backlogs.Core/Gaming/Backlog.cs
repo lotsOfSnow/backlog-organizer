@@ -4,11 +4,11 @@ using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Exceptions;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Events;
-using BacklogOrganizer.Modules.Backlogs.Core.Models;
+using BacklogOrganizer.Shared.Core;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 
-public class Backlog : Backlog<GameBacklogItem>
+public class Backlog : EntityBase, IAggregateRoot
 {
     public static readonly Guid InstanceId = new("6c24c264-c53d-4f44-adc4-26560e790a73");
 
