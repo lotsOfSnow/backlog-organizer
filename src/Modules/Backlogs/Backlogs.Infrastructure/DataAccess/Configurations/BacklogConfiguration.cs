@@ -10,7 +10,7 @@ public class BacklogConfiguration : IEntityTypeConfiguration<Backlog>
     public void Configure(EntityTypeBuilder<Backlog> builder)
     {
         const string groupsNavigation = "_groups";
-        builder.HasMany<GameBacklogItemsGroup>(groupsNavigation).WithOne();
+        builder.HasMany<BacklogGroup>(groupsNavigation).WithOne();
         builder.Navigation(groupsNavigation).AutoInclude();
     }
 }

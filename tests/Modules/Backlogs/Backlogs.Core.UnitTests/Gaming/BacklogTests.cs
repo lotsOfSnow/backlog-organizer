@@ -96,7 +96,7 @@ public class BacklogTests
         events[1].ItemId.Should().Be(item2.Id);
     }
 
-    private static (Backlog Backlog, GameBacklogItemsGroup Group) GetBacklogWithGroupAndItems(IEnumerable<BacklogItem> items)
+    private static (Backlog Backlog, BacklogGroup Group) GetBacklogWithGroupAndItems(IEnumerable<BacklogItem> items)
         => SetupBacklogWithGroup((backlog) =>
         {
             foreach (var item in items)
@@ -106,10 +106,10 @@ public class BacklogTests
         });
 
 
-    private static (Backlog Backlog, GameBacklogItemsGroup Group) SetupBacklogWithGroup(Action<Backlog>? action = null)
+    private static (Backlog Backlog, BacklogGroup Group) SetupBacklogWithGroup(Action<Backlog>? action = null)
     {
         var backlog = new Backlog();
-        var group = new GameBacklogItemsGroup(Guid.NewGuid(), backlog.Id, "Test group");
+        var group = new BacklogGroup(Guid.NewGuid(), backlog.Id, "Test group");
         backlog.AddGroup(group);
 
         if (action is not null)

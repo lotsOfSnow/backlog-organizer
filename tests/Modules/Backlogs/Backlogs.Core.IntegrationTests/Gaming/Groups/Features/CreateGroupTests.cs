@@ -25,7 +25,7 @@ public class CreateGroupTests : IClassFixture<BacklogsApplicationFactory>
 
         result.Should().BeSuccessful();
 
-        var createdGroup = await _factory.FindAsync<GameBacklogItemsGroup>(result.Value!.Id);
+        var createdGroup = await _factory.FindAsync<BacklogGroup>(result.Value!.Id);
         createdGroup.Should().NotBeNull();
         createdGroup!.Name.Should().Be(expectedName);
         createdGroup.Id.Should().Be(result.Value.Id);

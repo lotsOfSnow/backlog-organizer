@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BacklogOrganizer.Modules.Backlogs.Infrastructure.DataAccess.Configurations;
 
-public class GamingBacklogItemsGroupConfiguration : IEntityTypeConfiguration<GameBacklogItemsGroup>
+public class BacklogGroupConfiguration : IEntityTypeConfiguration<BacklogGroup>
 {
-    public void Configure(EntityTypeBuilder<GameBacklogItemsGroup> builder)
+    public void Configure(EntityTypeBuilder<BacklogGroup> builder)
     {
         builder.Property(x => x.Id).ValueGeneratedNever();
 

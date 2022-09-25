@@ -4,13 +4,13 @@ using BacklogOrganizer.Shared.Core;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 
-public class GameBacklogItemsGroup : EntityBase
+public class BacklogGroup : EntityBase
 {
     private readonly HashSet<GroupAssignment> _assignments = new();
 
     public Guid BacklogId { get; private set; }
 
-    public GameBacklogItemsGroup(Guid id, Guid backlogId, string name)
+    public BacklogGroup(Guid id, Guid backlogId, string name)
     {
         Id = id;
         BacklogId = backlogId;

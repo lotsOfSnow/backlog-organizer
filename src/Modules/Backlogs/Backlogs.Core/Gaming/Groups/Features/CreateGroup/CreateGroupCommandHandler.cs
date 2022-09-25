@@ -19,7 +19,7 @@ public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Res
             return Result<GameBacklogItemsGroupDto>.Failure(BacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
         }
 
-        var group = new GameBacklogItemsGroup(Guid.NewGuid(), backlog.Id, request.Name);
+        var group = new BacklogGroup(Guid.NewGuid(), backlog.Id, request.Name);
 
         backlog.AddGroup(group);
 

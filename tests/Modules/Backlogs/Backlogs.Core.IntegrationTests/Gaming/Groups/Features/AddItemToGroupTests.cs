@@ -67,10 +67,10 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
         });
     }
 
-    public async Task<(Backlog Backlog, GameBacklogItemsGroup Group)> SetupBacklogWithGroup(Action<Backlog> action)
+    public async Task<(Backlog Backlog, BacklogGroup Group)> SetupBacklogWithGroup(Action<Backlog> action)
     {
         var backlog = new Backlog();
-        var group = new GameBacklogItemsGroup(Guid.NewGuid(), backlog.Id, "Test group");
+        var group = new BacklogGroup(Guid.NewGuid(), backlog.Id, "Test group");
         backlog.AddGroup(group);
 
         action(backlog);
@@ -90,7 +90,7 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
         await _factory.ExecuteDbContextAsync(async (db) =>
         {
             var backlogAfterSaving = await db.Set<Backlog>().FirstAsync(x => x.Id == backlogId);
-            var groups = (IEnumerable<GameBacklogItemsGroup>)backlogAfterSaving.GetType().GetField("_groups", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(backlogAfterSaving);
+            var groups = (IEnumerable<BacklogGroup>)backlogAfterSaving.GetType().GetField("_groups", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(backlogAfterSaving);
             var group = groups.First();
             var assignments = ((IEnumerable<GroupAssignment>)group.GetType().GetField("_assignments", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(group)).ToList();
             action(assignments);
