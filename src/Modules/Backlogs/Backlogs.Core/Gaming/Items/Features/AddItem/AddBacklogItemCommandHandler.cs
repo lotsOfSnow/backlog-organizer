@@ -9,9 +9,10 @@ public class AddBacklogItemCommandHandler : IRequestHandler<AddBacklogItemComman
     private readonly IBacklogRepository _repository;
     private readonly IIdProvider<Guid> _guidProvider;
 
-    public AddBacklogItemCommandHandler(IBacklogRepository repository)
+    public AddBacklogItemCommandHandler(IBacklogRepository repository, IIdProvider<Guid> guidProvider)
     {
         _repository = repository;
+        _guidProvider = guidProvider;
     }
 
     public async Task<Unit> Handle(AddBacklogItemCommand request, CancellationToken cancellationToken)
