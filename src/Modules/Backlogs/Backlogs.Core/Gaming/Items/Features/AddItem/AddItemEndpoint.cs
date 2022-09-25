@@ -7,7 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.AddItem;
 
-[Route(ApiRoutes.GamingBacklogItems)]
+[Route(ApiRoutes.BacklogItems)]
 [ApiVersion(ApiVersions.V1)]
 public class AddItemEndpoint : BaseController
 {
@@ -19,7 +19,7 @@ public class AddItemEndpoint : BaseController
     [SwaggerOperation(
         Summary = "Create a new backlog item",
         OperationId = "createGamingBacklogItem",
-        Tags = new[] { ApiTags.GamingBacklogItems })]
+        Tags = new[] { ApiTags.BacklogItems })]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<Guid> AddItemAsync(AddItemEndpointRequestContract request)
     {

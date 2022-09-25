@@ -1,19 +1,20 @@
 using Ardalis.GuardClauses;
+using BacklogOrganizer.Modules.Backlogs.Core.Models;
 using BacklogOrganizer.Shared.Core;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.Models;
+namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 
-public abstract class BacklogItem : EntityBase
+public class BacklogItem : EntityBase
 {
-    public string Name { get; private set; }
-
-    public ItemCompletionStatusDetails CompletionStatusDetails { get; private set; }
-
-    protected BacklogItem(string name)
+    public BacklogItem(string name)
     {
         Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
         CompletionStatusDetails = new(ItemCompletionStatus.ToDo);
     }
+
+    public string Name { get; private set; }
+
+    public ItemCompletionStatusDetails CompletionStatusDetails { get; private set; }
 
     public void UpdateName(string name)
         => Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));

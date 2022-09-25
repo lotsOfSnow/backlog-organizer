@@ -7,7 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.ChangeStatus;
 
-[Route(ApiRoutes.GamingBacklogItems + "/{id:guid}" + "/change-status")]
+[Route(ApiRoutes.BacklogItems + "/{id:guid}" + "/change-status")]
 [ApiVersion(ApiVersions.V1)]
 public class ChangeStatusEndpoint : BaseController
 {
@@ -19,7 +19,7 @@ public class ChangeStatusEndpoint : BaseController
     [SwaggerOperation(
         Summary = "Change status of a backlog item",
         OperationId = "changeGamingBacklogItemStatus",
-        Tags = new[] { ApiTags.GamingBacklogItems })]
+        Tags = new[] { ApiTags.BacklogItems })]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> ChangeStatus(Guid id, [FromForm] ChangeStatusEndpointRequest request)
     {

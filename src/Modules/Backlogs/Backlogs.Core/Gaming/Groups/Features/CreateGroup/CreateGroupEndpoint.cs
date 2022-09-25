@@ -7,7 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.CreateGroup;
 
-[Route(ApiRoutes.GamingBacklogGroups)]
+[Route(ApiRoutes.BacklogGroups)]
 [ApiVersion(ApiVersions.V1)]
 public class CreateGroupEndpoint : BaseController
 {
@@ -19,7 +19,7 @@ public class CreateGroupEndpoint : BaseController
     [SwaggerOperation(
         Summary = "Create a new backlog group",
         OperationId = "createGamingBacklogGroup",
-        Tags = new[] { ApiTags.GamingBacklogGroups })]
+        Tags = new[] { ApiTags.BacklogGroups })]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<GameBacklogItemsGroupDto>> AddItemAsync(Guid id, CreateGroupRequestContract request)
     {

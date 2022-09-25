@@ -23,7 +23,7 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
     public async Task Can_add_items_to_group_if_items_exist_within_backlog()
     {
         var fixture = new Fixture();
-        var items = fixture.CreateMany<GameBacklogItem>().ToList();
+        var items = fixture.CreateMany<BacklogItem>().ToList();
         var (backlog, group) = await SetupBacklogWithGroup((backlog) =>
         {
             foreach (var item in items)
@@ -67,17 +67,17 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
         });
     }
 
-    public async Task<(GamingBacklog Backlog, GameBacklogItemsGroup Group)> SetupBacklogWithGroup(Action<GamingBacklog> action)
+    public async Task<(Backlog Backlog, BacklogGroup Group)> SetupBacklogWithGroup(Action<Backlog> action)
     {
-        var backlog = new GamingBacklog();
-        var group = new GameBacklogItemsGroup(Guid.NewGuid(), backlog.Id, "Test group");
+        var backlog = new Backlog();
+        var group = new BacklogGroup(Guid.NewGuid(), backlog.Id, "Test group");
         backlog.AddGroup(group);
 
         action(backlog);
 
         await _factory.ExecuteDbContextAsync(async db =>
         {
-            db.GamingBacklogs.Add(backlog);
+            db.Backlogs.Add(backlog);
             await db.SaveChangesAsync();
         });
 
@@ -89,8 +89,8 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
         // TODO: Just temporary until there's a query available.
         await _factory.ExecuteDbContextAsync(async (db) =>
         {
-            var backlogAfterSaving = await db.Set<GamingBacklog>().FirstAsync(x => x.Id == backlogId);
-            var groups = (IEnumerable<GameBacklogItemsGroup>)backlogAfterSaving.GetType().GetField("_groups", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(backlogAfterSaving);
+            var backlogAfterSaving = await db.Set<Backlog>().FirstAsync(x => x.Id == backlogId);
+            var groups = (IEnumerable<BacklogGroup>)backlogAfterSaving.GetType().GetField("_groups", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(backlogAfterSaving);
             var group = groups.First();
             var assignments = ((IEnumerable<GroupAssignment>)group.GetType().GetField("_assignments", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(group)).ToList();
             action(assignments);

@@ -11,11 +11,11 @@ public class BacklogsContext : DbContext, IBacklogStorage
     {
     }
 
-    public DbSet<GamingBacklog> GamingBacklogs { get; set; } = null!;
+    public DbSet<Backlog> Backlogs { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<GamingBacklog>().HasData(new GamingBacklog { Id = GamingBacklog.InstanceId });
+        modelBuilder.Entity<Backlog>().HasData(new Backlog { Id = Backlog.InstanceId });
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(BacklogItemConfiguration).Assembly);
     }

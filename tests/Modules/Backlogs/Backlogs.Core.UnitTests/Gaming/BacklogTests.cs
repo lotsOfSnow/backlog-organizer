@@ -7,13 +7,13 @@ using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Events;
 using BacklogOrganizer.Shared.Core.UnitTests.Extensions;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.UnitTests.Gaming;
-public class GamingBacklogTests
+public class BacklogTests
 {
     [Fact]
     public void Can_add_items_to_group_if_items_exist_within_backlog()
     {
         var fixture = new Fixture();
-        var items = fixture.CreateMany<GameBacklogItem>().ToList();
+        var items = fixture.CreateMany<BacklogItem>().ToList();
         var (backlog, group) = GetBacklogWithGroupAndItems(items);
 
         backlog.AddItemsToGroup(group.Id, items.Select(x => x.Id));
@@ -30,7 +30,7 @@ public class GamingBacklogTests
     [Fact]
     public void Can_not_add_item_to_group_if_item_does_not_exist_within_backlog()
     {
-        var itemThatDoesNotExistInBacklog = new GameBacklogItem("Item 1");
+        var itemThatDoesNotExistInBacklog = new BacklogItem("Item 1");
         var (emptyBacklog, groupOfEmptyBacklog) = SetupBacklogWithGroup();
 
         emptyBacklog.AddItemsToGroup(groupOfEmptyBacklog.Id, new[] { itemThatDoesNotExistInBacklog.Id });
@@ -41,19 +41,19 @@ public class GamingBacklogTests
     [Fact]
     public void Can_not_add_duplicate_items_to_backlog()
     {
-        var item1 = new GameBacklogItem("Item1")
+        var item1 = new BacklogItem("Item1")
         {
             Id = Guid.NewGuid()
         };
-        var item2 = new GameBacklogItem("Item2")
+        var item2 = new BacklogItem("Item2")
         {
             Id = Guid.NewGuid()
         };
-        var item3 = new GameBacklogItem("Item3")
+        var item3 = new BacklogItem("Item3")
         {
             Id = item2.Id
         };
-        var backlog = new GamingBacklog();
+        var backlog = new Backlog();
 
         var itemsWithDuplicatesToAddToBacklog = new[] { item1, item1, item2, item3 };
         foreach (var item in itemsWithDuplicatesToAddToBacklog)
@@ -71,15 +71,15 @@ public class GamingBacklogTests
     [Fact]
     public void Can_not_add_duplicate_items_to_backlog_group()
     {
-        var item = new GameBacklogItem("Item1")
+        var item = new BacklogItem("Item1")
         {
             Id = Guid.NewGuid()
         };
-        var item2 = new GameBacklogItem("Item2")
+        var item2 = new BacklogItem("Item2")
         {
             Id = Guid.NewGuid()
         };
-        var item3 = new GameBacklogItem("Item3")
+        var item3 = new BacklogItem("Item3")
         {
             Id = item2.Id
         };
@@ -96,7 +96,7 @@ public class GamingBacklogTests
         events[1].ItemId.Should().Be(item2.Id);
     }
 
-    private static (GamingBacklog Backlog, GameBacklogItemsGroup Group) GetBacklogWithGroupAndItems(IEnumerable<GameBacklogItem> items)
+    private static (Backlog Backlog, BacklogGroup Group) GetBacklogWithGroupAndItems(IEnumerable<BacklogItem> items)
         => SetupBacklogWithGroup((backlog) =>
         {
             foreach (var item in items)
@@ -106,10 +106,10 @@ public class GamingBacklogTests
         });
 
 
-    private static (GamingBacklog Backlog, GameBacklogItemsGroup Group) SetupBacklogWithGroup(Action<GamingBacklog>? action = null)
+    private static (Backlog Backlog, BacklogGroup Group) SetupBacklogWithGroup(Action<Backlog>? action = null)
     {
-        var backlog = new GamingBacklog();
-        var group = new GameBacklogItemsGroup(Guid.NewGuid(), backlog.Id, "Test group");
+        var backlog = new Backlog();
+        var group = new BacklogGroup(Guid.NewGuid(), backlog.Id, "Test group");
         backlog.AddGroup(group);
 
         if (action is not null)

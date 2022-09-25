@@ -4,20 +4,20 @@ using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Exceptions;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Events;
-using BacklogOrganizer.Modules.Backlogs.Core.Models;
+using BacklogOrganizer.Shared.Core;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 
-public class GamingBacklog : Backlog<GameBacklogItem>
+public class Backlog : EntityBase, IAggregateRoot
 {
     public static readonly Guid InstanceId = new("6c24c264-c53d-4f44-adc4-26560e790a73");
 
-    private readonly HashSet<GameBacklogItem> _items = new();
-    private readonly HashSet<GameBacklogItemsGroup> _groups = new();
+    private readonly HashSet<BacklogItem> _items = new();
+    private readonly HashSet<BacklogGroup> _groups = new();
 
-    public IEnumerable<GameBacklogItem> Items => _items.ToList().AsReadOnly();
+    public IEnumerable<BacklogItem> Items => _items.ToList().AsReadOnly();
 
-    public void AddItem(GameBacklogItem item)
+    public void AddItem(BacklogItem item)
     {
         Guard.Against.Null(item, nameof(item));
 
@@ -39,7 +39,7 @@ public class GamingBacklog : Backlog<GameBacklogItem>
         _items.Remove(item);
     }
 
-    public void AddGroup(GameBacklogItemsGroup group)
+    public void AddGroup(BacklogGroup group)
     {
         // TODO: Identify group by its name and its backlog
         if (_groups.Any(x => x.Name == group.Name || x.Id == group.Id))

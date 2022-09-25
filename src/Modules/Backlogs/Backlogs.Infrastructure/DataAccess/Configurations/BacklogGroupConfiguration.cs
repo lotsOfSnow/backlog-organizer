@@ -5,16 +5,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BacklogOrganizer.Modules.Backlogs.Infrastructure.DataAccess.Configurations;
 
-public class GamingBacklogItemsGroupConfiguration : IEntityTypeConfiguration<GameBacklogItemsGroup>
+public class BacklogGroupConfiguration : IEntityTypeConfiguration<BacklogGroup>
 {
-    public void Configure(EntityTypeBuilder<GameBacklogItemsGroup> builder)
+    public void Configure(EntityTypeBuilder<BacklogGroup> builder)
     {
         builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.OwnsMany<GroupAssignment>("_assignments", assignments =>
         {
             assignments.WithOwner().HasForeignKey(x => x.GroupId);
-            assignments.HasOne<GameBacklogItem>().WithMany().HasForeignKey(x => x.ItemId);
+            assignments.HasOne<BacklogItem>().WithMany().HasForeignKey(x => x.ItemId);
             assignments.HasKey(x => new { x.GroupId, x.ItemId });
         });
     }

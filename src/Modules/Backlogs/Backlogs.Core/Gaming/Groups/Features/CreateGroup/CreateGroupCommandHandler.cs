@@ -5,9 +5,9 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.CreateGr
 
 public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Result<GameBacklogItemsGroupDto>>
 {
-    private readonly IGamingBacklogRepository _repo;
+    private readonly IBacklogRepository _repo;
 
-    public CreateGroupCommandHandler(IGamingBacklogRepository repo) => _repo = repo;
+    public CreateGroupCommandHandler(IBacklogRepository repo) => _repo = repo;
 
     public async Task<Result<GameBacklogItemsGroupDto>> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
     {
@@ -16,10 +16,10 @@ public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Res
 
         if (backlog is null)
         {
-            return Result<GameBacklogItemsGroupDto>.Failure(GamingBacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
+            return Result<GameBacklogItemsGroupDto>.Failure(BacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
         }
 
-        var group = new GameBacklogItemsGroup(Guid.NewGuid(), backlog.Id, request.Name);
+        var group = new BacklogGroup(Guid.NewGuid(), backlog.Id, request.Name);
 
         backlog.AddGroup(group);
 

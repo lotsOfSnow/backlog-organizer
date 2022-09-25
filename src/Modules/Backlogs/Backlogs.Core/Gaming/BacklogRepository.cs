@@ -3,16 +3,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 
-public class GamingBacklogRepository : IGamingBacklogRepository
+public class BacklogRepository : IBacklogRepository
 {
     private readonly IBacklogStorage _storage;
 
-    public GamingBacklogRepository(IBacklogStorage storage)
+    public BacklogRepository(IBacklogStorage storage)
         => _storage = storage;
 
-    public async Task<GamingBacklog?> GetAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Backlog?> GetAsync(Guid id, CancellationToken cancellationToken = default)
         => await _storage
-            .GamingBacklogs
+            .Backlogs
             .Include(x => x.Items)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
