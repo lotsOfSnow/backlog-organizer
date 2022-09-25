@@ -15,7 +15,7 @@ public class BacklogsContext : DbContext, IBacklogStorage
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Backlog>().HasData(new Backlog { Id = Backlog.InstanceId });
+        modelBuilder.Entity<Backlog>().HasData(new Backlog(Backlog.InstanceId));
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(BacklogItemConfiguration).Assembly);
     }

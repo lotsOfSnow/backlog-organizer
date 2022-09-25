@@ -14,7 +14,7 @@ public sealed class BacklogsApplicationFactory : CustomWebApplicationFactory<Pro
         await using var scope = Services.CreateAsyncScope();
         var db = scope.ServiceProvider.GetRequiredService<BacklogsContext>();
 
-        var backlog = new Backlog();
+        var backlog = new Backlog(Guid.NewGuid());
         db.Backlogs.Add(backlog);
         await db.SaveChangesAsync();
 

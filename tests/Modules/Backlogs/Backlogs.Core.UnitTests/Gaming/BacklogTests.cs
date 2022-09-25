@@ -44,7 +44,7 @@ public class BacklogTests
         var item1 = new BacklogItem(Guid.NewGuid(), "Item1");
         var item2 = new BacklogItem(Guid.NewGuid(), "Item2");
         var item3 = new BacklogItem(item2.Id, "Item3");
-        var backlog = new Backlog();
+        var backlog = new Backlog(Guid.NewGuid());
 
         var itemsWithDuplicatesToAddToBacklog = new[] { item1, item1, item2, item3 };
         foreach (var item in itemsWithDuplicatesToAddToBacklog)
@@ -90,7 +90,7 @@ public class BacklogTests
 
     private static (Backlog Backlog, BacklogGroup Group) SetupBacklogWithGroup(Action<Backlog>? action = null)
     {
-        var backlog = new Backlog();
+        var backlog = new Backlog(Guid.NewGuid());
         var group = new BacklogGroup(Guid.NewGuid(), backlog.Id, "Test group");
         backlog.AddGroup(group);
 

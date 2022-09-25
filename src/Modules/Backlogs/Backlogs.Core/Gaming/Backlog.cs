@@ -18,6 +18,11 @@ public class Backlog : EntityBase, IAggregateRoot
 
     public IEnumerable<BacklogItem> Items => _items.ToList().AsReadOnly();
 
+    public Backlog(Guid id)
+    {
+        Id = id;
+    }
+
     public void AddItem(BacklogItem item)
     {
         Guard.Against.Null(item, nameof(item));
