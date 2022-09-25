@@ -1,4 +1,5 @@
 using Ardalis.GuardClauses;
+using BacklogOrganizer.Shared.Core.Domain.Entities.Identity;
 using MediatR;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.AddItem;
@@ -6,8 +7,12 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.AddItem;
 public class AddBacklogItemCommandHandler : IRequestHandler<AddBacklogItemCommand>
 {
     private readonly IBacklogRepository _repository;
+    private readonly IIdProvider<Guid> _guidProvider;
 
-    public AddBacklogItemCommandHandler(IBacklogRepository repository) => _repository = repository;
+    public AddBacklogItemCommandHandler(IBacklogRepository repository)
+    {
+        _repository = repository;
+    }
 
     public async Task<Unit> Handle(AddBacklogItemCommand request, CancellationToken cancellationToken)
     {
@@ -16,7 +21,8 @@ public class AddBacklogItemCommandHandler : IRequestHandler<AddBacklogItemComman
 
         Guard.Against.Null(backlog, nameof(backlog));
 
-        var item = new BacklogItem(Guid.NewGuid(), request.Name);
+        var id = await _guidProvider.GetIdAsync();
+        var item = new BacklogItem(id, request.Name);
         backlog.AddItem(item);
 
         await _repository.SaveChangesAsync(cancellationToken);
