@@ -22,9 +22,10 @@ public class AddBacklogItemTests : IClassFixture<BacklogsApplicationFactory>
         const string expectedName = "Test item";
         var request = new AddBacklogItemCommand(Backlog.InstanceId, expectedName);
 
-        await _factory.SendAsync(request);
+        var result = await _factory.SendAsync(request);
+        result.Should().BeSuccessful();
 
-        var createdItem = await _factory.FindAsync<BacklogItem>(request.AddedItemId!);
+        var createdItem = await _factory.FindAsync<BacklogItem>(result.Value!.Id);
         createdItem.Should().NotBeNull();
         createdItem!.Name.Should().Be(expectedName);
         createdItem.Id.Should().NotBe(default(Guid));
