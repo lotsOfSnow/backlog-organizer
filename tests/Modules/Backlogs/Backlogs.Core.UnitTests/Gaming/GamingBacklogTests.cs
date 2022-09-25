@@ -13,13 +13,7 @@ public class GamingBacklogTests
     {
         var fixture = new Fixture();
         var items = fixture.CreateMany<GameBacklogItem>().ToList();
-        var (backlog, group) = SetupBacklogWithGroup((backlog) =>
-        {
-            foreach (var item in items)
-            {
-                backlog.AddItem(item);
-            }
-        });
+        var (backlog, group) = GetBacklogWithGroupAndItems(items);
 
         backlog.AddItemsToGroup(group.Id, items.Select(x => x.Id));
 
@@ -43,7 +37,45 @@ public class GamingBacklogTests
         emptyBacklog.AssertDomainEventNotPublished<NewGroupAssignmentCreatedDomainEvent>();
     }
 
-    public static (GamingBacklog Backlog, GameBacklogItemsGroup Group) SetupBacklogWithGroup(Action<GamingBacklog>? action = null)
+    [Fact]
+    public void Can_not_add_duplicate_items_to_backlog_group()
+    {
+        var item = new GameBacklogItem("Item1")
+        {
+            Id = Guid.NewGuid()
+        };
+        var item2 = new GameBacklogItem("Item2")
+        {
+            Id = Guid.NewGuid()
+        };
+        var item3 = new GameBacklogItem("Item3")
+        {
+            Id = item2.Id
+        };
+        var uniqueBacklogItems = new[] { item, item2 };
+        var (backlog, group) = GetBacklogWithGroupAndItems(uniqueBacklogItems);
+
+        var itemsWithDuplicatesToAddToGroup = new[] { item, item, item2, item3 };
+        backlog.AddItemsToGroup(group.Id, itemsWithDuplicatesToAddToGroup.Select(x => x.Id));
+
+        var events = backlog.AssertPublishedDomainEvents<NewGroupAssignmentCreatedDomainEvent>();
+        events.Should().HaveCount(2);
+        events.Should().OnlyContain(x => x.GroupId == group.Id);
+        events[0].ItemId.Should().Be(item.Id);
+        events[1].ItemId.Should().Be(item2.Id);
+    }
+
+    private static (GamingBacklog Backlog, GameBacklogItemsGroup Group) GetBacklogWithGroupAndItems(IEnumerable<GameBacklogItem> items)
+        => SetupBacklogWithGroup((backlog) =>
+        {
+            foreach (var item in items)
+            {
+                backlog.AddItem(item);
+            }
+        });
+
+
+    private static (GamingBacklog Backlog, GameBacklogItemsGroup Group) SetupBacklogWithGroup(Action<GamingBacklog>? action = null)
     {
         var backlog = new GamingBacklog();
         var group = new GameBacklogItemsGroup(Guid.NewGuid(), backlog.Id, "Test group");
