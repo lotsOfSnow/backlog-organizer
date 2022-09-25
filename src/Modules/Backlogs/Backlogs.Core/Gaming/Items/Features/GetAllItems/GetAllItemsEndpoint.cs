@@ -19,7 +19,7 @@ public class GetAllItemsEndpoint : BaseController
         Summary = "Get all items of a backlog",
         OperationId = "getAllGamingBacklogItems",
         Tags = new[] { ApiTags.BacklogItems })]
-    public async Task<ActionResult<IEnumerable<GameBacklogItemDto>>> GetAllItems(Guid id)
+    public async Task<ActionResult<IEnumerable<BacklogItemDto>>> GetAllItems(Guid id)
     {
         var command = new GetAllItemsQuery(id);
         var result = await Mediator.Send(command);

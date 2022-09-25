@@ -3,4 +3,4 @@ using MediatR;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.GetAllItems;
 
-public record GetAllItemsQuery(Guid BacklogId) : IRequest<Result<IEnumerable<GameBacklogItemDto>>>;
+public record GetAllItemsQuery(Guid BacklogId) : IRequest<Result<IEnumerable<BacklogItemDto>>>;
