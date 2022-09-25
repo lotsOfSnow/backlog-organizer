@@ -6,8 +6,9 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 
 public class BacklogItem : EntityBase
 {
-    public BacklogItem(string name)
+    public BacklogItem(Guid id, string name)
     {
+        Id = id;
         Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
         CompletionStatusDetails = new(ItemCompletionStatus.ToDo);
     }

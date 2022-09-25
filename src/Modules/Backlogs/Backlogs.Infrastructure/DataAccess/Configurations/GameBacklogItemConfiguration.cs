@@ -8,6 +8,7 @@ public class BacklogItemConfiguration : IEntityTypeConfiguration<BacklogItem>
 {
     public void Configure(EntityTypeBuilder<BacklogItem> builder)
     {
+        builder.Property(x => x.Id).ValueGeneratedNever();
         builder.OwnsOne(x => x.CompletionStatusDetails);
     }
 }

@@ -16,7 +16,7 @@ public class AddBacklogItemCommandHandler : IRequestHandler<AddBacklogItemComman
 
         Guard.Against.Null(backlog, nameof(backlog));
 
-        var item = new BacklogItem(request.Name);
+        var item = new BacklogItem(Guid.NewGuid(), request.Name);
         backlog.AddItem(item);
 
         await _repository.SaveChangesAsync(cancellationToken);
