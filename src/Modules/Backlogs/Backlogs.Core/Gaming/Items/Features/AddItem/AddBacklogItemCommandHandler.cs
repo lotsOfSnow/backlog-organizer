@@ -1,10 +1,11 @@
-using Ardalis.GuardClauses;
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.GetAllItems;
 using BacklogOrganizer.Shared.Core.Domain.Entities.Identity;
+using BacklogOrganizer.Shared.Core.Results;
 using MediatR;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.AddItem;
 
-public class AddBacklogItemCommandHandler : IRequestHandler<AddBacklogItemCommand>
+public class AddBacklogItemCommandHandler : IRequestHandler<AddBacklogItemCommand, Result<BacklogItemDto>>
 {
     private readonly IBacklogRepository _repository;
     private readonly IIdProvider<Guid> _guidProvider;
@@ -15,12 +16,15 @@ public class AddBacklogItemCommandHandler : IRequestHandler<AddBacklogItemComman
         _guidProvider = guidProvider;
     }
 
-    public async Task<Unit> Handle(AddBacklogItemCommand request, CancellationToken cancellationToken)
+    public async Task<Result<BacklogItemDto>> Handle(AddBacklogItemCommand request, CancellationToken cancellationToken)
     {
         // TODO: Validate that it found the right one.
         var backlog = await _repository.GetAsync(request.BacklogId, cancellationToken);
 
-        Guard.Against.Null(backlog, nameof(backlog));
+        if (backlog is null)
+        {
+            return Result<BacklogItemDto>.Failure(BacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
+        }
 
         var id = await _guidProvider.GetIdAsync(cancellationToken);
         var item = new BacklogItem(id, request.Name);
@@ -28,8 +32,8 @@ public class AddBacklogItemCommandHandler : IRequestHandler<AddBacklogItemComman
 
         await _repository.SaveChangesAsync(cancellationToken);
 
-        request.AddedItemId = item.Id;
+        var dto = new BacklogItemDto(item.Id, item.Name);
 
-        return Unit.Value;
+        return Result<BacklogItemDto>.Success(dto);
     }
 }

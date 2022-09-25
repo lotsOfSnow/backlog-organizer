@@ -1,5 +1,6 @@
 using System.Net.Mime;
 using BacklogOrganizer.Modules.Backlogs.Core.Api;
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.GetAllItems;
 using BacklogOrganizer.Shared.Api.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -21,10 +22,10 @@ public class AddItemEndpoint : BaseController
         OperationId = "createGamingBacklogItem",
         Tags = new[] { ApiTags.BacklogItems })]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<Guid> AddItemAsync(AddItemEndpointRequestContract request)
+    public async Task<ActionResult<BacklogItemDto>> AddItemAsync(AddItemEndpointRequestContract request)
     {
         var command = new AddBacklogItemCommand(request.BacklogId, request.Name);
-        await Mediator.Send(command);
-        return command.AddedItemId!.Value;
+        var result = await Mediator.Send(command);
+        return result.ToObjectResult();
     }
 }
