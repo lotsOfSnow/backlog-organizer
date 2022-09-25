@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.GetAllItems;
 
-public class GetAllItemsQueryHandler : IRequestHandler<GetAllItemsQuery, Result<IEnumerable<GameBacklogItemDto>>>
+public class GetAllItemsQueryHandler : IRequestHandler<GetAllItemsQuery, Result<IEnumerable<BacklogItemDto>>>
 {
     private readonly IBacklogStorage _storage;
 
     public GetAllItemsQueryHandler(IBacklogStorage storage)
         => _storage = storage;
 
-    public async Task<Result<IEnumerable<GameBacklogItemDto>>> Handle(GetAllItemsQuery request, CancellationToken cancellationToken)
+    public async Task<Result<IEnumerable<BacklogItemDto>>> Handle(GetAllItemsQuery request, CancellationToken cancellationToken)
     {
         var backlog = await _storage.Backlogs
             .Include(x => x.Items)
@@ -20,15 +20,15 @@ public class GetAllItemsQueryHandler : IRequestHandler<GetAllItemsQuery, Result<
 
         if (backlog is null)
         {
-            return Result<IEnumerable<GameBacklogItemDto>>
+            return Result<IEnumerable<BacklogItemDto>>
                 .Failure(BacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
         }
 
         var mappedItems = backlog
             .Items
-            .Select(x => new GameBacklogItemDto(x.Id, x.Name))
+            .Select(x => new BacklogItemDto(x.Id, x.Name))
             .ToList();
 
-        return Result<IEnumerable<GameBacklogItemDto>>.Success(mappedItems);
+        return Result<IEnumerable<BacklogItemDto>>.Success(mappedItems);
     }
 }

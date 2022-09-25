@@ -4,7 +4,7 @@ using MediatR;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.CreateGroup;
 
-public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Result<GameBacklogItemsGroupDto>>
+public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Result<BacklogGroupDto>>
 {
     private readonly IBacklogRepository _repo;
     private readonly IIdProvider<Guid> _guidProvider;
@@ -15,14 +15,14 @@ public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Res
         _guidProvider = guidProvider;
     }
 
-    public async Task<Result<GameBacklogItemsGroupDto>> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
+    public async Task<Result<BacklogGroupDto>> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
     {
         // TODO: Validate that it found the right one.
         var backlog = await _repo.GetAsync(request.BacklogId, cancellationToken);
 
         if (backlog is null)
         {
-            return Result<GameBacklogItemsGroupDto>.Failure(BacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
+            return Result<BacklogGroupDto>.Failure(BacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
         }
 
         var id = await _guidProvider.GetIdAsync(cancellationToken);
@@ -32,7 +32,7 @@ public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Res
 
         await _repo.SaveChangesAsync(cancellationToken);
 
-        var dto = new GameBacklogItemsGroupDto(group.Id, group.Name);
-        return Result<GameBacklogItemsGroupDto>.Success(dto);
+        var dto = new BacklogGroupDto(group.Id, group.Name);
+        return Result<BacklogGroupDto>.Success(dto);
     }
 }

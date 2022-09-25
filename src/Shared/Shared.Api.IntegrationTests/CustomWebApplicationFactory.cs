@@ -34,7 +34,7 @@ public abstract class CustomWebApplicationFactory<TProgram> : WebApplicationFact
         });
     }
 
-    private void AddConfiguration(IConfigurationBuilder configurationBuilder)
+    private static void AddConfiguration(IConfigurationBuilder configurationBuilder)
     {
         var config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.test.json")

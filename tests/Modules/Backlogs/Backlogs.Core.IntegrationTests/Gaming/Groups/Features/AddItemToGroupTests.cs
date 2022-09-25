@@ -61,10 +61,8 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
         result.Should().BeSuccessful();
 
         // TODO: Query to check if it worked.
-        await AssertAssignments(emptyBacklog.Id, assignments =>
-        {
-            assignments.Should().BeEmpty();
-        });
+        await AssertAssignments(emptyBacklog.Id, assignments
+            => assignments.Should().BeEmpty());
     }
 
     public async Task<(Backlog Backlog, BacklogGroup Group)> SetupBacklogWithGroup(Action<Backlog> action)

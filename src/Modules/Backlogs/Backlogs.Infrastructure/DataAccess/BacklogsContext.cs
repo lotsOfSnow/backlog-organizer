@@ -15,7 +15,6 @@ public class BacklogsContext : DbContext, IBacklogStorage
 
     public DbSet<Backlog> Backlogs { get; private set; } = null!;
 
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         DisableAutoGeneratingIds(modelBuilder);
@@ -36,5 +35,7 @@ public class BacklogsContext : DbContext, IBacklogStorage
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Required for EF")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Roslynator", "RCS1213:Remove unused member declaration.", Justification = "Required for EF")]
     private DbSet<BacklogGroup> Groups { get; } = null!;
 }
