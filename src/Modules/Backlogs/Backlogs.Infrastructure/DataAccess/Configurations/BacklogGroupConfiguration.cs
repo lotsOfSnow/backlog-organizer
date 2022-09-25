@@ -9,8 +9,6 @@ public class BacklogGroupConfiguration : IEntityTypeConfiguration<BacklogGroup>
 {
     public void Configure(EntityTypeBuilder<BacklogGroup> builder)
     {
-        builder.Property(x => x.Id).ValueGeneratedNever();
-
         builder.OwnsMany<GroupAssignment>("_assignments", assignments =>
         {
             assignments.WithOwner().HasForeignKey(x => x.GroupId);

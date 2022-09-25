@@ -1,7 +1,7 @@
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 using BacklogOrganizer.Modules.Backlogs.Infrastructure.DataAccess;
 using BacklogOrganizer.Shared.Api.IntegrationTests;
-using BacklogOrganizer.Shared.Core;
+using BacklogOrganizer.Shared.Core.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +14,7 @@ public sealed class BacklogsApplicationFactory : CustomWebApplicationFactory<Pro
         await using var scope = Services.CreateAsyncScope();
         var db = scope.ServiceProvider.GetRequiredService<BacklogsContext>();
 
-        var backlog = new Backlog();
+        var backlog = new Backlog(Guid.NewGuid());
         db.Backlogs.Add(backlog);
         await db.SaveChangesAsync();
 
@@ -29,7 +29,7 @@ public sealed class BacklogsApplicationFactory : CustomWebApplicationFactory<Pro
     }
 
     public async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues)
-        where TEntity : EntityBase
+        where TEntity : GuidIdEntity
     {
         await using var scope = Services.CreateAsyncScope();
         var context = scope.ServiceProvider.GetRequiredService<BacklogsContext>();

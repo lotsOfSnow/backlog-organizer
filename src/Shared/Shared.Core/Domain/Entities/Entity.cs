@@ -1,8 +1,8 @@
-﻿using BacklogOrganizer.Shared.Core.Domain;
+﻿using BacklogOrganizer.Shared.Core.Domain.DomainEvents;
 
-namespace BacklogOrganizer.Shared.Core;
+namespace BacklogOrganizer.Shared.Core.Domain.Entities;
 
-public class Entity
+public abstract class Entity
 {
     private readonly List<IDomainEvent> _domainEvents = new();
 

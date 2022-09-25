@@ -1,12 +1,13 @@
 using Ardalis.GuardClauses;
 using BacklogOrganizer.Modules.Backlogs.Core.Models;
-using BacklogOrganizer.Shared.Core;
+using BacklogOrganizer.Shared.Core.Domain.Entities;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 
-public class BacklogItem : EntityBase
+public class BacklogItem : GuidIdEntity
 {
-    public BacklogItem(string name)
+    public BacklogItem(Guid id, string name)
+        : base(id)
     {
         Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
         CompletionStatusDetails = new(ItemCompletionStatus.ToDo);

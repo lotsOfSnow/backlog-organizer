@@ -1,3 +1,4 @@
+using BacklogOrganizer.Shared.Core.Domain.Entities.Identity;
 using BacklogOrganizer.Shared.Core.Results;
 using MediatR;
 
@@ -6,8 +7,13 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.CreateGr
 public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Result<GameBacklogItemsGroupDto>>
 {
     private readonly IBacklogRepository _repo;
+    private readonly IIdProvider<Guid> _guidProvider;
 
-    public CreateGroupCommandHandler(IBacklogRepository repo) => _repo = repo;
+    public CreateGroupCommandHandler(IBacklogRepository repo, IIdProvider<Guid> guidProvider)
+    {
+        _repo = repo;
+        _guidProvider = guidProvider;
+    }
 
     public async Task<Result<GameBacklogItemsGroupDto>> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
     {
@@ -19,7 +25,8 @@ public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Res
             return Result<GameBacklogItemsGroupDto>.Failure(BacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
         }
 
-        var group = new BacklogGroup(Guid.NewGuid(), backlog.Id, request.Name);
+        var id = await _guidProvider.GetIdAsync(cancellationToken);
+        var group = new BacklogGroup(id, backlog.Id, request.Name);
 
         backlog.AddGroup(group);
 

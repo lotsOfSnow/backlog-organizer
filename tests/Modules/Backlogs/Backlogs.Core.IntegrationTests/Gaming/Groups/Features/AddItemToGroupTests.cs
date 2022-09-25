@@ -69,7 +69,7 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
 
     public async Task<(Backlog Backlog, BacklogGroup Group)> SetupBacklogWithGroup(Action<Backlog> action)
     {
-        var backlog = new Backlog();
+        var backlog = new Backlog(Guid.NewGuid());
         var group = new BacklogGroup(Guid.NewGuid(), backlog.Id, "Test group");
         backlog.AddGroup(group);
 
