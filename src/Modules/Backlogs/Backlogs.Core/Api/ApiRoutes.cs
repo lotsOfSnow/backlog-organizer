@@ -6,9 +6,9 @@ public static class ApiRoutes
     private const string Version = "v{version:apiVersion}";
     private const string VersionedBase = Base + "/" + Version;
 
-    public const string GamingBacklogItems = VersionedBase + "/" + "gaming-backlog-items";
+    public const string BacklogItems = VersionedBase + "/" + "gaming-backlog-items";
 
-    public const string GamingBacklogs = VersionedBase + "/" + "gaming-backlogs";
+    public const string Backlogs = VersionedBase + "/" + "gaming-backlogs";
 
-    public const string GamingBacklogGroups = GamingBacklogs + "{id:guid}/" + "Groups";
+    public const string BacklogGroups = Backlogs + "{id:guid}/" + "Groups";
 }

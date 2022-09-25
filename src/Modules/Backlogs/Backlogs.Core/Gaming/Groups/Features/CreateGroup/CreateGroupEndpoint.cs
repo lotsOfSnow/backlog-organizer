@@ -7,7 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.CreateGroup;
 
-[Route(ApiRoutes.GamingBacklogGroups)]
+[Route(ApiRoutes.BacklogGroups)]
 [ApiVersion(ApiVersions.V1)]
 public class CreateGroupEndpoint : BaseController
 {
