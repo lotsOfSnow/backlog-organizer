@@ -16,4 +16,8 @@
     <InternalsVisibleTo Include="BacklogOrganizer.WebApi" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\DomainEvents\" />
+  </ItemGroup>
+
 </Project>

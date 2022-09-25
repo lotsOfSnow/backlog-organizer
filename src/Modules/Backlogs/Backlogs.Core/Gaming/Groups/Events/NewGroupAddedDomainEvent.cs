@@ -1,4 +1,4 @@
-﻿using BacklogOrganizer.Shared.Core.Domain;
+﻿using BacklogOrganizer.Shared.Core.Domain.DomainEvents;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Events;
 public class NewGroupAddedDomainEvent : DomainEventBase

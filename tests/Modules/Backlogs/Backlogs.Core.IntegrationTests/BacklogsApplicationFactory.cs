@@ -1,7 +1,6 @@
-using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 using BacklogOrganizer.Modules.Backlogs.Infrastructure.DataAccess;
 using BacklogOrganizer.Shared.Api.IntegrationTests;
-using BacklogOrganizer.Shared.Core;
+using BacklogOrganizer.Shared.Core.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,13 +8,13 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests;
 
 public sealed class BacklogsApplicationFactory : CustomWebApplicationFactory<Program>
 {
-    public async Task<Backlog> GetNewBacklogAsync()
+    public async Task<GamingBacklog> GetNewBacklogAsync()
     {
         await using var scope = Services.CreateAsyncScope();
         var db = scope.ServiceProvider.GetRequiredService<BacklogsContext>();
 
-        var backlog = new Backlog();
-        db.Backlogs.Add(backlog);
+        var backlog = new GamingBacklog();
+        db.GamingBacklogs.Add(backlog);
         await db.SaveChangesAsync();
 
         return backlog;

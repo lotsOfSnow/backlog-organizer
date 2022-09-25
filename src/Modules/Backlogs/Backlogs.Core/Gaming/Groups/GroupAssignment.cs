@@ -1,4 +1,4 @@
-﻿using BacklogOrganizer.Shared.Core;
+﻿using BacklogOrganizer.Shared.Core.Domain.Entities;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 

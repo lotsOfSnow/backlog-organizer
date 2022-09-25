@@ -1,4 +1,4 @@
-namespace BacklogOrganizer.Shared.Core;
+namespace BacklogOrganizer.Shared.Core.Domain.Entities;
 
 public class EntityBase : Entity, IEquatable<EntityBase>
 {
@@ -12,5 +12,4 @@ public class EntityBase : Entity, IEquatable<EntityBase>
 
     public override int GetHashCode()
         => Id.GetHashCode();
-
 }

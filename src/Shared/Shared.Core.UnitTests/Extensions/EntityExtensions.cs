@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Reflection;
-using BacklogOrganizer.Shared.Core.Domain;
+using BacklogOrganizer.Shared.Core.Domain.DomainEvents;
+using BacklogOrganizer.Shared.Core.Domain.Entities;
 using FluentAssertions;
 
 namespace BacklogOrganizer.Shared.Core.UnitTests.Extensions;

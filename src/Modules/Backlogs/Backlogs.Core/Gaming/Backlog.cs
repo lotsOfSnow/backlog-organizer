@@ -5,6 +5,7 @@ using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Events;
 using BacklogOrganizer.Shared.Core;
+using BacklogOrganizer.Shared.Core.Domain.Entities;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 
