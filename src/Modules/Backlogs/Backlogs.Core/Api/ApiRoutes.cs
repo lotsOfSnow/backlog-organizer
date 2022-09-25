@@ -10,5 +10,5 @@ public static class ApiRoutes
 
     public const string Backlogs = VersionedBase + "/gaming-backlogs";
 
-    public const string BacklogGroups = Backlogs + "{id:guid}/Groups";
+    public const string BacklogGroups = Backlogs + "/{backlogId:guid}/groups";
 }

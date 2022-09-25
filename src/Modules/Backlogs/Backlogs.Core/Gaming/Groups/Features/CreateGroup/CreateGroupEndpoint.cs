@@ -21,9 +21,9 @@ public class CreateGroupEndpoint : BaseController
         OperationId = "createGamingBacklogGroup",
         Tags = new[] { ApiTags.BacklogGroups })]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<BacklogGroupDto>> AddItemAsync(Guid id, CreateGroupRequestContract request)
+    public async Task<ActionResult<BacklogGroupDto>> AddItemAsync(Guid backlogId, CreateGroupRequestContract request)
     {
-        var command = new CreateGroupCommand(id, request.Name);
+        var command = new CreateGroupCommand(backlogId, request.Name);
         var group = await Mediator.Send(command);
         return group.ToObjectResult();
     }
