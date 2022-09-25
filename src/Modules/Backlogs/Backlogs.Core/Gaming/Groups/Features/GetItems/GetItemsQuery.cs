@@ -1,4 +1,5 @@
-﻿using BacklogOrganizer.Shared.Core.Mediator;
+﻿using BacklogOrganizer.Modules.Backlogs.Core.Data;
+using BacklogOrganizer.Shared.Core.Mediator;
 using BacklogOrganizer.Shared.Core.Results;
 using MediatR;
 
@@ -8,8 +9,14 @@ public record GetItemsQuery(Guid GroupId) : IQuery<Result<IEnumerable<GroupAssig
 
 public class GetItemsQueryHandler : IRequestHandler<GetItemsQuery, Result<IEnumerable<GroupAssignmentDto>>>
 {
-    public Task<Result<IEnumerable<GroupAssignmentDto>>> Handle(GetItemsQuery request, CancellationToken cancellationToken)
+    private readonly IQueryDbConnectionFactory _queryDbConnectionFactory;
+
+    public GetItemsQueryHandler(IQueryDbConnectionFactory queryDbConnectionFactory)
+        => _queryDbConnectionFactory = queryDbConnectionFactory;
+
+    public async Task<Result<IEnumerable<GroupAssignmentDto>>> Handle(GetItemsQuery request, CancellationToken cancellationToken)
     {
+        var conn = await _queryDbConnectionFactory.CreateNewConnectionAsync();
         throw new NotImplementedException();
     }
 }
