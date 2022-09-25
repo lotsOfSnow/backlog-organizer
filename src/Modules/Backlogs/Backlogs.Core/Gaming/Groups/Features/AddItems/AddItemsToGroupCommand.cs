@@ -8,9 +8,9 @@ public record AddItemsToGroupCommand(Guid BacklogId, Guid GroupId, IEnumerable<G
 
 public class AddItemsToGroupCommandHandler : IRequestHandler<AddItemsToGroupCommand, Result<Unit>>
 {
-    private readonly IGamingBacklogRepository _repository;
+    private readonly IBacklogRepository _repository;
 
-    public AddItemsToGroupCommandHandler(IGamingBacklogRepository repository) => _repository = repository;
+    public AddItemsToGroupCommandHandler(IBacklogRepository repository) => _repository = repository;
 
     public async Task<Result<Unit>> Handle(AddItemsToGroupCommand request, CancellationToken cancellationToken)
     {
@@ -18,7 +18,7 @@ public class AddItemsToGroupCommandHandler : IRequestHandler<AddItemsToGroupComm
 
         if (backlog is null)
         {
-            return Result<Unit>.Failure(GamingBacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
+            return Result<Unit>.Failure(BacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
         }
 
         try
@@ -27,7 +27,7 @@ public class AddItemsToGroupCommandHandler : IRequestHandler<AddItemsToGroupComm
         }
         catch (GroupNotFoundException)
         {
-            return Result<Unit>.Failure(GamingBacklogResultErrors.GetGroupNotFoundError(request.BacklogId, request.GroupId));
+            return Result<Unit>.Failure(BacklogResultErrors.GetGroupNotFoundError(request.BacklogId, request.GroupId));
         }
 
         await _repository.SaveChangesAsync(cancellationToken);

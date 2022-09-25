@@ -9,7 +9,7 @@ internal static class Installer
     {
         services.AddControllers().AddApplicationPart(typeof(Installer).Assembly);
 
-        services.AddScoped<IGamingBacklogRepository, GamingBacklogRepository>();
+        services.AddScoped<IBacklogRepository, BacklogRepository>();
 
         return services;
     }

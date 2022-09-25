@@ -6,10 +6,10 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.ChangeSta
 
 public class ChangeStatusCommandHandler : IRequestHandler<ChangeStatusCommand>
 {
-    private readonly IGamingBacklogRepository _repository;
+    private readonly IBacklogRepository _repository;
     private readonly ILogger<ChangeStatusCommandHandler> _logger;
 
-    public ChangeStatusCommandHandler(IGamingBacklogRepository repository, ILogger<ChangeStatusCommandHandler> logger)
+    public ChangeStatusCommandHandler(IBacklogRepository repository, ILogger<ChangeStatusCommandHandler> logger)
     {
         _repository = repository;
         _logger = logger;

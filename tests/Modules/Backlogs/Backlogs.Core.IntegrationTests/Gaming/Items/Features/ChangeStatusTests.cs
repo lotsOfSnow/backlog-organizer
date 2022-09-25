@@ -20,11 +20,11 @@ public class ChangeStatusTests : IClassFixture<BacklogsApplicationFactory>
     [Fact]
     public async Task Updates_status()
     {
-        var creationCommand = new AddBacklogItemCommand(GamingBacklog.InstanceId, "Name");
+        var creationCommand = new AddBacklogItemCommand(Backlog.InstanceId, "Name");
         await _factory.SendAsync(creationCommand);
 
         var newStatus = ItemCompletionStatus.Completed;
-        var command = new ChangeStatusCommand(GamingBacklog.InstanceId, creationCommand.AddedItemId!.Value, newStatus);
+        var command = new ChangeStatusCommand(Backlog.InstanceId, creationCommand.AddedItemId!.Value, newStatus);
         await _factory.SendAsync(command);
 
         var item = await _factory.FindAsync<GameBacklogItem>(creationCommand.AddedItemId);

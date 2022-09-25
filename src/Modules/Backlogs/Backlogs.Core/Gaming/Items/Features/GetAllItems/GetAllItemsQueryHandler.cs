@@ -14,14 +14,14 @@ public class GetAllItemsQueryHandler : IRequestHandler<GetAllItemsQuery, Result<
 
     public async Task<Result<IEnumerable<GameBacklogItemDto>>> Handle(GetAllItemsQuery request, CancellationToken cancellationToken)
     {
-        var backlog = await _storage.GamingBacklogs
+        var backlog = await _storage.Backlogs
             .Include(x => x.Items)
             .FirstOrDefaultAsync(x => x.Id == request.BacklogId, cancellationToken);
 
         if (backlog is null)
         {
             return Result<IEnumerable<GameBacklogItemDto>>
-                .Failure(GamingBacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
+                .Failure(BacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
         }
 
         var mappedItems = backlog

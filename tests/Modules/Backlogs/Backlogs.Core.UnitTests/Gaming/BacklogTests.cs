@@ -7,7 +7,7 @@ using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Events;
 using BacklogOrganizer.Shared.Core.UnitTests.Extensions;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.UnitTests.Gaming;
-public class GamingBacklogTests
+public class BacklogTests
 {
     [Fact]
     public void Can_add_items_to_group_if_items_exist_within_backlog()
@@ -53,7 +53,7 @@ public class GamingBacklogTests
         {
             Id = item2.Id
         };
-        var backlog = new GamingBacklog();
+        var backlog = new Backlog();
 
         var itemsWithDuplicatesToAddToBacklog = new[] { item1, item1, item2, item3 };
         foreach (var item in itemsWithDuplicatesToAddToBacklog)
@@ -96,7 +96,7 @@ public class GamingBacklogTests
         events[1].ItemId.Should().Be(item2.Id);
     }
 
-    private static (GamingBacklog Backlog, GameBacklogItemsGroup Group) GetBacklogWithGroupAndItems(IEnumerable<GameBacklogItem> items)
+    private static (Backlog Backlog, GameBacklogItemsGroup Group) GetBacklogWithGroupAndItems(IEnumerable<GameBacklogItem> items)
         => SetupBacklogWithGroup((backlog) =>
         {
             foreach (var item in items)
@@ -106,9 +106,9 @@ public class GamingBacklogTests
         });
 
 
-    private static (GamingBacklog Backlog, GameBacklogItemsGroup Group) SetupBacklogWithGroup(Action<GamingBacklog>? action = null)
+    private static (Backlog Backlog, GameBacklogItemsGroup Group) SetupBacklogWithGroup(Action<Backlog>? action = null)
     {
-        var backlog = new GamingBacklog();
+        var backlog = new Backlog();
         var group = new GameBacklogItemsGroup(Guid.NewGuid(), backlog.Id, "Test group");
         backlog.AddGroup(group);
 

@@ -20,7 +20,7 @@ public class AddBacklogItemTests : IClassFixture<BacklogsApplicationFactory>
     public async Task Can_create_backlog_item()
     {
         const string expectedName = "Test item";
-        var request = new AddBacklogItemCommand(GamingBacklog.InstanceId, expectedName);
+        var request = new AddBacklogItemCommand(Backlog.InstanceId, expectedName);
 
         await _factory.SendAsync(request);
 

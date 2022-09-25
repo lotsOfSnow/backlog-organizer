@@ -9,13 +9,13 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests;
 
 public sealed class BacklogsApplicationFactory : CustomWebApplicationFactory<Program>
 {
-    public async Task<GamingBacklog> GetNewBacklogAsync()
+    public async Task<Backlog> GetNewBacklogAsync()
     {
         await using var scope = Services.CreateAsyncScope();
         var db = scope.ServiceProvider.GetRequiredService<BacklogsContext>();
 
-        var backlog = new GamingBacklog();
-        db.GamingBacklogs.Add(backlog);
+        var backlog = new Backlog();
+        db.Backlogs.Add(backlog);
         await db.SaveChangesAsync();
 
         return backlog;

@@ -5,7 +5,7 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.Data;
 
 public interface IBacklogStorage
 {
-    DbSet<GamingBacklog> GamingBacklogs { get; }
+    DbSet<Backlog> Backlogs { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
