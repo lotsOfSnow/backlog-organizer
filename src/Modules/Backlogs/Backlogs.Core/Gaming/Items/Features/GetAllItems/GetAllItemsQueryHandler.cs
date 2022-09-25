@@ -21,7 +21,7 @@ public class GetAllItemsQueryHandler : IRequestHandler<GetAllItemsQuery, Result<
         if (backlog is null)
         {
             return Result<IEnumerable<GameBacklogItemDto>>
-                .Failure(GamingBacklogResultErrors.BacklogNotFound(request.BacklogId));
+                .Failure(GamingBacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
         }
 
         var mappedItems = backlog

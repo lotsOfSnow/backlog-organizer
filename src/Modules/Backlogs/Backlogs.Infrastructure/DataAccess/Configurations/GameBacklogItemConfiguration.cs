@@ -6,5 +6,8 @@ namespace BacklogOrganizer.Modules.Backlogs.Infrastructure.DataAccess.Configurat
 
 public class BacklogItemConfiguration : IEntityTypeConfiguration<GameBacklogItem>
 {
-    public void Configure(EntityTypeBuilder<GameBacklogItem> builder) => builder.OwnsOne(x => x.CompletionStatusDetails);
+    public void Configure(EntityTypeBuilder<GameBacklogItem> builder)
+    {
+        builder.OwnsOne(x => x.CompletionStatusDetails);
+    }
 }

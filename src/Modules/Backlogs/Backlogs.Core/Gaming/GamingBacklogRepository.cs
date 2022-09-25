@@ -14,7 +14,6 @@ public class GamingBacklogRepository : IGamingBacklogRepository
         => await _storage
             .GamingBacklogs
             .Include(x => x.Items)
-            .Include(x => x.Groups)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

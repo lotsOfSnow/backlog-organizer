@@ -1,3 +1,4 @@
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Events;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 using BacklogOrganizer.Shared.Core;
 
@@ -5,10 +6,36 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 
 public class GameBacklogItemsGroup : EntityBase
 {
-    public GameBacklogItemsGroup(string name)
-        => Name = name;
+    private readonly HashSet<GroupAssignment> _assignments = new();
 
-    public string Name { get; protected set; }
+    public Guid BacklogId { get; private set; }
 
-    public ICollection<GameBacklogItem> Items { get; protected set; } = null!;
+    public GameBacklogItemsGroup(Guid id, Guid backlogId, string name)
+    {
+        Id = id;
+        BacklogId = backlogId;
+        Name = name;
+
+        AddDomainEvent(new NewGroupAddedDomainEvent(BacklogId, id));
+    }
+
+    public string Name { get; private set; }
+
+    public void AddItems(params GameBacklogItem[] items)
+    {
+        foreach (var item in items)
+        {
+            AddItem(item);
+        }
+    }
+
+    private void AddItem(GameBacklogItem item)
+    {
+        var assignment = GroupAssignment.Create(Id, item.Id);
+
+        if (_assignments.Add(assignment))
+        {
+            AddDomainEvent(new NewGroupAssignmentCreatedDomainEvent(Id, item.Id));
+        }
+    }
 }
