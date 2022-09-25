@@ -22,7 +22,7 @@ public class AddBacklogItemCommandHandler : IRequestHandler<AddBacklogItemComman
 
         Guard.Against.Null(backlog, nameof(backlog));
 
-        var id = await _guidProvider.GetIdAsync();
+        var id = await _guidProvider.GetIdAsync(cancellationToken);
         var item = new BacklogItem(id, request.Name);
         backlog.AddItem(item);
 

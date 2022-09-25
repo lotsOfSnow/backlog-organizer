@@ -1,18 +1,15 @@
 using Ardalis.GuardClauses;
 using MediatR;
-using Microsoft.Extensions.Logging;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.ChangeStatus;
 
 public class ChangeStatusCommandHandler : IRequestHandler<ChangeStatusCommand>
 {
     private readonly IBacklogRepository _repository;
-    private readonly ILogger<ChangeStatusCommandHandler> _logger;
 
-    public ChangeStatusCommandHandler(IBacklogRepository repository, ILogger<ChangeStatusCommandHandler> logger)
+    public ChangeStatusCommandHandler(IBacklogRepository repository)
     {
         _repository = repository;
-        _logger = logger;
     }
 
     public async Task<Unit> Handle(ChangeStatusCommand request, CancellationToken cancellationToken)

@@ -10,7 +10,7 @@ public static class OptionsExtensions
     {
         var options = new T();
         configuration.GetSection(sectionName).Bind(options);
-        services.Configure<T>(x => _ = options);
+        services.Configure<T>(_ => _ = options);
         return options;
     }
 }

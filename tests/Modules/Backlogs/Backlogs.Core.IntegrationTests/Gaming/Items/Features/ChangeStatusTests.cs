@@ -23,7 +23,7 @@ public class ChangeStatusTests : IClassFixture<BacklogsApplicationFactory>
         var creationCommand = new AddBacklogItemCommand(Backlog.InstanceId, "Name");
         await _factory.SendAsync(creationCommand);
 
-        var newStatus = ItemCompletionStatus.Completed;
+        const ItemCompletionStatus newStatus = ItemCompletionStatus.Completed;
         var command = new ChangeStatusCommand(Backlog.InstanceId, creationCommand.AddedItemId!.Value, newStatus);
         await _factory.SendAsync(command);
 

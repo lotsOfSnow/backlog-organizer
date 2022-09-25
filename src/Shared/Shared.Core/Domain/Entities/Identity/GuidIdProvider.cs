@@ -6,5 +6,5 @@ public class GuidIdProvider : IIdProvider<Guid>
     private readonly SequentialGuidValueGenerator _generator = new();
 
     public async Task<Guid> GetIdAsync(CancellationToken cancellationToken)
-        => await _generator.NextAsync(null);
+        => await _generator.NextAsync(null, cancellationToken);
 }

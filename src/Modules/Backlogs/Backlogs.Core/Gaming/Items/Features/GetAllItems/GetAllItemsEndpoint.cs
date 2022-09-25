@@ -6,7 +6,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.GetAllItems;
 
-[Route(ApiRoutes.Backlogs + "/{id:guid}" + "/items")]
+[Route(ApiRoutes.Backlogs + "/{id:guid}/items")]
 [ApiVersion(ApiVersions.V1)]
 public class GetAllItemsEndpoint : BaseController
 {

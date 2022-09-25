@@ -87,7 +87,6 @@ public class BacklogTests
             }
         });
 
-
     private static (Backlog Backlog, BacklogGroup Group) SetupBacklogWithGroup(Action<Backlog>? action = null)
     {
         var backlog = new Backlog(Guid.NewGuid());

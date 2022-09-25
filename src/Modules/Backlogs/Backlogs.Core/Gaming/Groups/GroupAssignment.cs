@@ -2,7 +2,7 @@
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 
-public class GroupAssignment : Entity, IEquatable<GroupAssignment?>
+public sealed class GroupAssignment : Entity, IEquatable<GroupAssignment?>
 {
     private GroupAssignment(Guid groupId, Guid itemId)
     {
