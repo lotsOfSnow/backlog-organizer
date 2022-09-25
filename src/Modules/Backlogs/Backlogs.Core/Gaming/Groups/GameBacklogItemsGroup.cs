@@ -21,7 +21,7 @@ public class GameBacklogItemsGroup : EntityBase
 
     public string Name { get; private set; }
 
-    public void AddItems(params GameBacklogItem[] items)
+    public void AddItems(params BacklogItem[] items)
     {
         foreach (var item in items)
         {
@@ -29,7 +29,7 @@ public class GameBacklogItemsGroup : EntityBase
         }
     }
 
-    private void AddItem(GameBacklogItem item)
+    private void AddItem(BacklogItem item)
     {
         var assignment = GroupAssignment.Create(Id, item.Id);
 

@@ -4,9 +4,9 @@ using BacklogOrganizer.Shared.Core;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 
-public class GameBacklogItem : EntityBase
+public class BacklogItem : EntityBase
 {
-    public GameBacklogItem(string name)
+    public BacklogItem(string name)
     {
         Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
         CompletionStatusDetails = new(ItemCompletionStatus.ToDo);

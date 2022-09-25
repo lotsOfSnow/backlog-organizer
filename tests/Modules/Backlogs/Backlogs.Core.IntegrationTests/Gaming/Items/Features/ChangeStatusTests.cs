@@ -27,7 +27,7 @@ public class ChangeStatusTests : IClassFixture<BacklogsApplicationFactory>
         var command = new ChangeStatusCommand(Backlog.InstanceId, creationCommand.AddedItemId!.Value, newStatus);
         await _factory.SendAsync(command);
 
-        var item = await _factory.FindAsync<GameBacklogItem>(creationCommand.AddedItemId);
+        var item = await _factory.FindAsync<BacklogItem>(creationCommand.AddedItemId);
         item!.CompletionStatusDetails.Status.Should().Be(newStatus);
     }
 }

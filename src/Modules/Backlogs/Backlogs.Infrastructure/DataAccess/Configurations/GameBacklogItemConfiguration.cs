@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BacklogOrganizer.Modules.Backlogs.Infrastructure.DataAccess.Configurations;
 
-public class BacklogItemConfiguration : IEntityTypeConfiguration<GameBacklogItem>
+public class BacklogItemConfiguration : IEntityTypeConfiguration<BacklogItem>
 {
-    public void Configure(EntityTypeBuilder<GameBacklogItem> builder)
+    public void Configure(EntityTypeBuilder<BacklogItem> builder)
     {
         builder.OwnsOne(x => x.CompletionStatusDetails);
     }

@@ -12,12 +12,12 @@ public class Backlog : EntityBase, IAggregateRoot
 {
     public static readonly Guid InstanceId = new("6c24c264-c53d-4f44-adc4-26560e790a73");
 
-    private readonly HashSet<GameBacklogItem> _items = new();
+    private readonly HashSet<BacklogItem> _items = new();
     private readonly HashSet<GameBacklogItemsGroup> _groups = new();
 
-    public IEnumerable<GameBacklogItem> Items => _items.ToList().AsReadOnly();
+    public IEnumerable<BacklogItem> Items => _items.ToList().AsReadOnly();
 
-    public void AddItem(GameBacklogItem item)
+    public void AddItem(BacklogItem item)
     {
         Guard.Against.Null(item, nameof(item));
 

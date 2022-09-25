@@ -14,7 +14,7 @@ public class GamingBacklogItemsGroupConfiguration : IEntityTypeConfiguration<Gam
         builder.OwnsMany<GroupAssignment>("_assignments", assignments =>
         {
             assignments.WithOwner().HasForeignKey(x => x.GroupId);
-            assignments.HasOne<GameBacklogItem>().WithMany().HasForeignKey(x => x.ItemId);
+            assignments.HasOne<BacklogItem>().WithMany().HasForeignKey(x => x.ItemId);
             assignments.HasKey(x => new { x.GroupId, x.ItemId });
         });
     }

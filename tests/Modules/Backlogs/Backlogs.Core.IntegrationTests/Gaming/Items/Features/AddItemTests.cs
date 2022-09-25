@@ -24,7 +24,7 @@ public class AddBacklogItemTests : IClassFixture<BacklogsApplicationFactory>
 
         await _factory.SendAsync(request);
 
-        var createdItem = await _factory.FindAsync<GameBacklogItem>(request.AddedItemId!);
+        var createdItem = await _factory.FindAsync<BacklogItem>(request.AddedItemId!);
         createdItem.Should().NotBeNull();
         createdItem!.Name.Should().Be(expectedName);
         createdItem.Id.Should().NotBe(default(Guid));

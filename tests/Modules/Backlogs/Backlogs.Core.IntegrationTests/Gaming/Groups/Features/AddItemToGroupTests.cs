@@ -23,7 +23,7 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
     public async Task Can_add_items_to_group_if_items_exist_within_backlog()
     {
         var fixture = new Fixture();
-        var items = fixture.CreateMany<GameBacklogItem>().ToList();
+        var items = fixture.CreateMany<BacklogItem>().ToList();
         var (backlog, group) = await SetupBacklogWithGroup((backlog) =>
         {
             foreach (var item in items)
