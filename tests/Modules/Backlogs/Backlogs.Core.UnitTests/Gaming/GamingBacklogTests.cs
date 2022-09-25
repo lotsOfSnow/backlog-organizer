@@ -3,6 +3,7 @@ using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Events;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Events;
 using BacklogOrganizer.Shared.Core.UnitTests.Extensions;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.UnitTests.Gaming;
@@ -35,6 +36,36 @@ public class GamingBacklogTests
         emptyBacklog.AddItemsToGroup(groupOfEmptyBacklog.Id, new[] { itemThatDoesNotExistInBacklog.Id });
 
         emptyBacklog.AssertDomainEventNotPublished<NewGroupAssignmentCreatedDomainEvent>();
+    }
+
+    [Fact]
+    public void Can_not_add_duplicate_items_to_backlog()
+    {
+        var item1 = new GameBacklogItem("Item1")
+        {
+            Id = Guid.NewGuid()
+        };
+        var item2 = new GameBacklogItem("Item2")
+        {
+            Id = Guid.NewGuid()
+        };
+        var item3 = new GameBacklogItem("Item3")
+        {
+            Id = item2.Id
+        };
+        var backlog = new GamingBacklog();
+
+        var itemsWithDuplicatesToAddToBacklog = new[] { item1, item1, item2, item3 };
+        foreach (var item in itemsWithDuplicatesToAddToBacklog)
+        {
+            backlog.AddItem(item);
+        }
+
+        var events = backlog.AssertPublishedDomainEvents<NewItemAddedDomainEvent>();
+        events.Should().HaveCount(2);
+        events.Should().OnlyContain(x => x.BacklogId == backlog.Id);
+        events[0].ItemId.Should().Be(item1.Id);
+        events[1].ItemId.Should().Be(item2.Id);
     }
 
     [Fact]
