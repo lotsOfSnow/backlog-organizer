@@ -19,7 +19,7 @@ public class CreateGroupEndpoint : BaseController
     [SwaggerOperation(
         Summary = "Create a new backlog group",
         OperationId = "createGamingBacklogGroup",
-        Tags = new[] { ApiTags.GamingBacklogGroups })]
+        Tags = new[] { ApiTags.BacklogGroups })]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<GameBacklogItemsGroupDto>> AddItemAsync(Guid id, CreateGroupRequestContract request)
     {

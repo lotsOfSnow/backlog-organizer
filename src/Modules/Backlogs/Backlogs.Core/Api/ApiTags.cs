@@ -2,9 +2,9 @@ namespace BacklogOrganizer.Modules.Backlogs.Core.Api;
 
 public static class ApiTags
 {
-    public const string GamingBacklogItems = "GamingBacklogItems";
+    public const string Backlogs = "GamingBacklogs";
 
-    public const string GamingBacklogs = "GamingBacklogs";
+    public const string BacklogItems = "GamingBacklogItems";
 
-    public const string GamingBacklogGroups = "GamingBacklogGroups";
+    public const string BacklogGroups = "GamingBacklogGroups";
 }

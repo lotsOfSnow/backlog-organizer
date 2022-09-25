@@ -19,7 +19,7 @@ public class AddItemEndpoint : BaseController
     [SwaggerOperation(
         Summary = "Create a new backlog item",
         OperationId = "createGamingBacklogItem",
-        Tags = new[] { ApiTags.GamingBacklogItems })]
+        Tags = new[] { ApiTags.BacklogItems })]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<Guid> AddItemAsync(AddItemEndpointRequestContract request)
     {
