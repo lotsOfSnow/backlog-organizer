@@ -20,7 +20,7 @@ public class GetAssignmentsQueryHandler : IRequestHandler<GetAssignmentsQuery, R
         // TODO: Get or create? Read if disposing it is needed.
         // TODO: Make table names constant
         // TODO: Verify if backlog exists? check if it's even worth it for the queries (+ for displaying errors)
-        using var conn = await _queryDbConnectionFactory.CreateNewConnectionAsync();
+        var conn = await _queryDbConnectionFactory.GetOrCreateConnectionAsync();
 
         var queryArgs = new { GroupId = request.GroupId };
 

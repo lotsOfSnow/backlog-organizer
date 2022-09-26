@@ -3,5 +3,5 @@
 namespace BacklogOrganizer.Modules.Backlogs.Core.Data;
 public interface IQueryDbConnectionFactory
 {
-    Task<IDbConnection> CreateNewConnectionAsync();
+    Task<IDbConnection> GetOrCreateConnectionAsync();
 }

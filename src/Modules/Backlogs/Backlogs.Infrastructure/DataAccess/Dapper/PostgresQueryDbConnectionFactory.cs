@@ -16,8 +16,13 @@ public class PostgresQueryDbConnectionFactory : IQueryDbConnectionFactory, IDisp
         _connectionString = postgresOptions.Value.ConnectionString;
     }
 
-    public async Task<IDbConnection> CreateNewConnectionAsync()
+    public async Task<IDbConnection> GetOrCreateConnectionAsync()
     {
+        if (_connection?.State == ConnectionState.Open)
+        {
+            return _connection;
+        }
+
         var connection = new NpgsqlConnection(_connectionString);
         await connection.OpenAsync();
 
