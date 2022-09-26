@@ -1,10 +1,7 @@
-﻿using System.Reflection;
-using AutoFixture;
-using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
-using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
+﻿using AutoFixture;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.AddItems;
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.GetItems;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
-using Microsoft.EntityFrameworkCore;
 using Xunit.Abstractions;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Gaming.Groups.Features;
@@ -34,15 +31,11 @@ public class AddItemToGroupTests : GroupsTests
 
         result.Should().BeSuccessful();
 
-        // TODO: Query to check if it worked.
-        await AssertAssignments(backlog.Id, assignments =>
+        await AssertAssignments(backlog.Id, group.Id, assignments =>
         {
             assignments.Should().HaveCount(items.Count);
-            for (var i = 0; i < items.Count; i++)
-            {
-                var assignment = assignments.Single(x => x.ItemId == items[i].Id);
-                assignment.GroupId.Should().Be(group.Id);
-            }
+            var expected = items.Select(x => new { ItemId = x.Id });
+            assignments.Should().BeEquivalentTo(expected);
         });
     }
 
@@ -56,21 +49,13 @@ public class AddItemToGroupTests : GroupsTests
         var result = await Factory.SendAsync(request);
         result.Should().BeSuccessful();
 
-        // TODO: Query to check if it worked.
-        await AssertAssignments(emptyBacklog.Id, assignments
+        await AssertAssignments(emptyBacklog.Id, groupOfEmptyBacklog.Id, assignments
             => assignments.Should().BeEmpty());
     }
 
-    public async Task AssertAssignments(Guid backlogId, Action<IReadOnlyList<GroupAssignment>> action)
+    public async Task AssertAssignments(Guid backlogId, Guid groupId, Action<IEnumerable<GroupAssignmentDto>> action)
     {
-        // TODO: Just temporary until there's a query available.
-        await Factory.ExecuteDbContextAsync(async (db) =>
-        {
-            var backlogAfterSaving = await db.Set<Backlog>().FirstAsync(x => x.Id == backlogId);
-            var groups = (IEnumerable<BacklogGroup>)backlogAfterSaving.GetType().GetField("_groups", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(backlogAfterSaving);
-            var group = groups.First();
-            var assignments = ((IEnumerable<GroupAssignment>)group.GetType().GetField("_assignments", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(group)).ToList();
-            action(assignments);
-        });
+        var assignments = await Factory.SendAsync(new GetAssignmentsQuery(backlogId, groupId));
+        action(assignments.Value!);
     }
 }
