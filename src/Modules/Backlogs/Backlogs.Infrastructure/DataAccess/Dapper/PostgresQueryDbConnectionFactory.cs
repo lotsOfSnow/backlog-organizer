@@ -8,14 +8,12 @@ namespace BacklogOrganizer.Modules.Backlogs.Infrastructure.DataAccess.Dapper;
 public class PostgresQueryDbConnectionFactory : IQueryDbConnectionFactory, IDisposable
 {
     private readonly string _connectionString;
-    private readonly IDbQueryCreator<PostgresQuery> _queryCreator;
 
     private IDbConnection? _connection;
 
-    public PostgresQueryDbConnectionFactory(IOptions<PostgresOptions> postgresOptions, IDbQueryCreator<PostgresQuery> queryCreator)
+    public PostgresQueryDbConnectionFactory(IOptions<PostgresOptions> postgresOptions)
     {
         _connectionString = postgresOptions.Value.ConnectionString;
-        _queryCreator = queryCreator;
     }
 
     public async Task<IDbConnection> GetOrCreateConnectionAsync()
@@ -32,9 +30,6 @@ public class PostgresQueryDbConnectionFactory : IQueryDbConnectionFactory, IDisp
 
         return connection;
     }
-
-    public string BuildQuery(string format, params string[] argumentValues)
-        => _queryCreator.Create(format, argumentValues).Value;
 
     protected virtual void Dispose(bool disposing)
     {
