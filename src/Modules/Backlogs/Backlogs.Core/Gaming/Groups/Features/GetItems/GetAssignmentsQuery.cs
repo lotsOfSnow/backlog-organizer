@@ -18,13 +18,12 @@ public class GetAssignmentsQueryHandler : IRequestHandler<GetAssignmentsQuery, R
 
     public async Task<Result<IEnumerable<GroupAssignmentDto>>> Handle(GetAssignmentsQuery request, CancellationToken cancellationToken)
     {
-        // TODO: Make table names constant
         // TODO: Verify if backlog exists? check if it's even worth it for the queries (+ for displaying errors)
         var conn = await _queryDbConnectionFactory.GetOrCreateConnectionAsync();
 
         var queryArgs = new { GroupId = request.GroupId };
 
-        var groupQuerySql = new PostgresQuery("SELECT EXISTS(SELECT 1 FROM {0} WHERE {1} = @GroupId)", OrmMappings.Groups.Table, OrmMappings.Groups.Columns.Id);
+        var groupQuerySql = _queryDbConnectionFactory.BuildQuery("SELECT EXISTS(SELECT 1 FROM {0} WHERE {1} = @GroupId)", OrmMappings.Groups.Table, OrmMappings.Groups.Columns.Id);
         var groupExists = await conn.QuerySingleOrDefaultAsync<bool>(groupQuerySql, queryArgs);
 
         if (!groupExists)
@@ -32,7 +31,7 @@ public class GetAssignmentsQueryHandler : IRequestHandler<GetAssignmentsQuery, R
             return Result<IEnumerable<GroupAssignmentDto>>.Failure(BacklogResultErrors.GetGroupNotFoundError(request.BacklogId, request.GroupId));
         }
 
-        var sql = new PostgresQuery("SELECT * FROM {0} WHERE {1} = @GroupId", OrmMappings.GroupAssignments.Table, OrmMappings.GroupAssignments.Columns.GroupId);
+        var sql = _queryDbConnectionFactory.BuildQuery("SELECT * FROM {0} WHERE {1} = @GroupId", OrmMappings.GroupAssignments.Table, OrmMappings.GroupAssignments.Columns.GroupId);
 
         //System.InvalidOperationException: A parameterless default constructor or one matching signature (System.Guid GroupId, System.Guid ItemId) is required for BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.GetItems.GroupAssignmentDto materialization
         var result = await conn.QueryAsync<GroupAssignmentDto>(sql, queryArgs);
