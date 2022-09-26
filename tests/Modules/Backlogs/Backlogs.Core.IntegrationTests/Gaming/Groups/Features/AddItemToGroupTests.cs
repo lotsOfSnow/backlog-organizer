@@ -4,19 +4,15 @@ using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.AddItems;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
-using BacklogOrganizer.Shared.Api.IntegrationTests.Assertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit.Abstractions;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Gaming.Groups.Features;
-public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
+public class AddItemToGroupTests : GroupsTests
 {
-    private readonly BacklogsApplicationFactory _factory;
-
     public AddItemToGroupTests(ITestOutputHelper testOutputHelper, BacklogsApplicationFactory factory)
+        : base(testOutputHelper, factory)
     {
-        _factory = factory;
-        _factory.TestOutputHelper = testOutputHelper;
     }
 
     [Fact]
@@ -24,7 +20,7 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
     {
         var fixture = new Fixture();
         var items = fixture.CreateMany<BacklogItem>().ToList();
-        var (backlog, group) = await SetupBacklogWithGroup((backlog) =>
+        var (backlog, group) = await SetupBacklogWithGroup((backlog, _) =>
         {
             foreach (var item in items)
             {
@@ -34,7 +30,7 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
         var expectedContents = items;
 
         var request = new AddItemsToGroupCommand(backlog.Id, group.Id, items.Select(x => x.Id));
-        var result = await _factory.SendAsync(request);
+        var result = await Factory.SendAsync(request);
 
         result.Should().BeSuccessful();
 
@@ -53,11 +49,11 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
     [Fact]
     public async Task Does_nothing_if_item_does_not_exist()
     {
-        var (emptyBacklog, groupOfEmptyBacklog) = await SetupBacklogWithGroup((_) => { });
+        var (emptyBacklog, groupOfEmptyBacklog) = await SetupBacklogWithGroup();
         var nonexistentItemId = Guid.NewGuid();
 
         var request = new AddItemsToGroupCommand(emptyBacklog.Id, groupOfEmptyBacklog.Id, new[] { nonexistentItemId });
-        var result = await _factory.SendAsync(request);
+        var result = await Factory.SendAsync(request);
         result.Should().BeSuccessful();
 
         // TODO: Query to check if it worked.
@@ -65,27 +61,10 @@ public class AddItemToGroupTests : IClassFixture<BacklogsApplicationFactory>
             => assignments.Should().BeEmpty());
     }
 
-    public async Task<(Backlog Backlog, BacklogGroup Group)> SetupBacklogWithGroup(Action<Backlog> action)
-    {
-        var backlog = new Backlog(Guid.NewGuid());
-        var group = new BacklogGroup(Guid.NewGuid(), backlog.Id, "Test group");
-        backlog.AddGroup(group);
-
-        action(backlog);
-
-        await _factory.ExecuteDbContextAsync(async db =>
-        {
-            db.Backlogs.Add(backlog);
-            await db.SaveChangesAsync();
-        });
-
-        return (backlog, group);
-    }
-
     public async Task AssertAssignments(Guid backlogId, Action<IReadOnlyList<GroupAssignment>> action)
     {
         // TODO: Just temporary until there's a query available.
-        await _factory.ExecuteDbContextAsync(async (db) =>
+        await Factory.ExecuteDbContextAsync(async (db) =>
         {
             var backlogAfterSaving = await db.Set<Backlog>().FirstAsync(x => x.Id == backlogId);
             var groups = (IEnumerable<BacklogGroup>)backlogAfterSaving.GetType().GetField("_groups", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(backlogAfterSaving);

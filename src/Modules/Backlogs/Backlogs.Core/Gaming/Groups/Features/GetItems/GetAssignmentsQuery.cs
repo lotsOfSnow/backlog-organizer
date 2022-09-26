@@ -6,16 +6,16 @@ using MediatR;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.GetItems;
 
-public record GetItemsQuery(Guid BacklogId, Guid GroupId) : IQuery<Result<IEnumerable<GroupAssignmentDto>>>;
+public record GetAssignmentsQuery(Guid BacklogId, Guid GroupId) : IQuery<Result<IEnumerable<GroupAssignmentDto>>>;
 
-public class GetItemsQueryHandler : IRequestHandler<GetItemsQuery, Result<IEnumerable<GroupAssignmentDto>>>
+public class GetAssignmentsQueryHandler : IRequestHandler<GetAssignmentsQuery, Result<IEnumerable<GroupAssignmentDto>>>
 {
     private readonly IQueryDbConnectionFactory _queryDbConnectionFactory;
 
-    public GetItemsQueryHandler(IQueryDbConnectionFactory queryDbConnectionFactory)
+    public GetAssignmentsQueryHandler(IQueryDbConnectionFactory queryDbConnectionFactory)
         => _queryDbConnectionFactory = queryDbConnectionFactory;
 
-    public async Task<Result<IEnumerable<GroupAssignmentDto>>> Handle(GetItemsQuery request, CancellationToken cancellationToken)
+    public async Task<Result<IEnumerable<GroupAssignmentDto>>> Handle(GetAssignmentsQuery request, CancellationToken cancellationToken)
     {
         // TODO: Get or create? Read if disposing it is needed.
         // TODO: Make table names constant
