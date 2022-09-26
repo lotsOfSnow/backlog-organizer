@@ -34,5 +34,12 @@ public static class OrmMappings
     public static class Items
     {
         public static readonly OrmValueMapping Table = "Items";
+
+        public static class Columns
+        {
+            public static readonly OrmValueMapping Id = "Id";
+            public static readonly OrmValueMapping BacklogId = "BacklogId";
+            public static readonly OrmValueMapping Name = "Name";
+        }
     }
 }
