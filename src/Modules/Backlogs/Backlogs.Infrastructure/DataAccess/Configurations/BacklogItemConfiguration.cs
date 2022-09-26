@@ -1,3 +1,4 @@
+using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -8,6 +9,8 @@ public class BacklogItemConfiguration : IEntityTypeConfiguration<BacklogItem>
 {
     public void Configure(EntityTypeBuilder<BacklogItem> builder)
     {
+        builder.ToTable(OrmMappings.Items.Table);
+
         builder.OwnsOne(x => x.CompletionStatusDetails);
     }
 }

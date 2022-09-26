@@ -9,6 +9,7 @@ public class BacklogConfiguration : IEntityTypeConfiguration<Backlog>
 {
     public void Configure(EntityTypeBuilder<Backlog> builder)
     {
+        builder.ToTable(OrmMappings.Backlogs.Table);
         const string groupsNavigation = "_groups";
         builder.HasMany<BacklogGroup>(groupsNavigation).WithOne();
         builder.Navigation(groupsNavigation).AutoInclude();
