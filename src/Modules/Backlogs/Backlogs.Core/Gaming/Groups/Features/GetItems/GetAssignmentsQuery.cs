@@ -22,9 +22,7 @@ public class GetAssignmentsQueryHandler : IRequestHandler<GetAssignmentsQuery, R
     {
         var dbConnection = await _queryRepository.ConnectionFactory.GetOrCreateConnectionAsync();
 
-        var backlogQueryArgs = new { request.BacklogId };
-        var backlogExistenceQuery = _queryRepository.GetExistenceCheckQuery(OrmMappings.Backlogs.Table, OrmMappings.Backlogs.Columns.Id, nameof(backlogQueryArgs.BacklogId));
-        var backlogExists = await dbConnection.QuerySingleOrDefaultAsync<bool>(backlogExistenceQuery, backlogQueryArgs);
+        var backlogExists = await CommonQueries.BacklogExists(_queryRepository, dbConnection, request.BacklogId);
         if (!backlogExists)
         {
             return Result<IEnumerable<GroupAssignmentDto>>.Failure(BacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
