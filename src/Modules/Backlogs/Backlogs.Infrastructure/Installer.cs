@@ -13,7 +13,7 @@ internal static class Installer
     {
         services.AddPostgres<BacklogsContext>(configuration);
         services.AddScoped<IBacklogStorage, BacklogsContext>();
-        services.AddScoped<IQueryDbConnectionFactory, DapperDbConnectionFactory>();
+        services.AddScoped<IQueryDbConnectionFactory, PostgresQueryDbConnectionFactory>();
 
         return services;
     }

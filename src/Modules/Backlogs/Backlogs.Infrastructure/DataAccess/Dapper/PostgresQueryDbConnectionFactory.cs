@@ -5,13 +5,13 @@ using Microsoft.Extensions.Options;
 using Npgsql;
 
 namespace BacklogOrganizer.Modules.Backlogs.Infrastructure.DataAccess.Dapper;
-public class DapperDbConnectionFactory : IQueryDbConnectionFactory, IDisposable
+public class PostgresQueryDbConnectionFactory : IQueryDbConnectionFactory, IDisposable
 {
     private readonly string _connectionString;
 
     private IDbConnection? _connection;
 
-    public DapperDbConnectionFactory(IOptions<PostgresOptions> postgresOptions)
+    public PostgresQueryDbConnectionFactory(IOptions<PostgresOptions> postgresOptions)
     {
         _connectionString = postgresOptions.Value.ConnectionString;
     }
