@@ -7,11 +7,11 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.GetItems;
 
-[Route(ApiRoutes.BacklogGroups + "/{groupId}/items")]
+[Route(ApiRoutes.BacklogGroups + "/{groupId}/assignments")]
 [ApiVersion(ApiVersions.V1)]
-public class GetItemsEndpoint : BaseController
+public class GetAssignmentsEndpoint : BaseController
 {
-    public GetItemsEndpoint(IMediator mediator) : base(mediator)
+    public GetAssignmentsEndpoint(IMediator mediator) : base(mediator)
     {
     }
 
@@ -23,8 +23,8 @@ public class GetItemsEndpoint : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<GroupAssignmentDto>>> GetAssignmentsAsync(Guid backlogId, Guid groupId)
     {
-        var command = new GetAssignmentsQuery(backlogId, groupId);
-        var result = await Mediator.Send(command);
+        var query = new GetAssignmentsQuery(backlogId, groupId);
+        var result = await Mediator.Send(query);
         return result.ToObjectResult();
     }
 }
