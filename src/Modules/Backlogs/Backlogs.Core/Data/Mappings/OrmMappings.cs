@@ -4,6 +4,11 @@ public static class OrmMappings
     public static class Backlogs
     {
         public static readonly OrmValueMapping Table = "Backlogs";
+
+        public static class Columns
+        {
+            public static readonly OrmValueMapping Id = "Id";
+        }
     }
 
     public static class Groups
