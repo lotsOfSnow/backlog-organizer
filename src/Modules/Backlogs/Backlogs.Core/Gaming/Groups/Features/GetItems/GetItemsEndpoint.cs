@@ -23,7 +23,7 @@ public class GetItemsEndpoint : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<GroupAssignmentDto>>> GetAssignmentsAsync(Guid backlogId, Guid groupId)
     {
-        var command = new GetItemsQuery(groupId);
+        var command = new GetItemsQuery(backlogId, groupId);
         var result = await Mediator.Send(command);
         return result.ToObjectResult();
     }

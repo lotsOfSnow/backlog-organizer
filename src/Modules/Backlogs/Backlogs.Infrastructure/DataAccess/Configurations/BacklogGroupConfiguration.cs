@@ -11,6 +11,7 @@ public class BacklogGroupConfiguration : IEntityTypeConfiguration<BacklogGroup>
     {
         builder.OwnsMany<GroupAssignment>("_assignments", assignments =>
         {
+            assignments.ToTable("GroupAssignments");
             assignments.WithOwner().HasForeignKey(x => x.GroupId);
             assignments.HasOne<BacklogItem>().WithMany().HasForeignKey(x => x.ItemId);
             assignments.HasKey(x => new { x.GroupId, x.ItemId });

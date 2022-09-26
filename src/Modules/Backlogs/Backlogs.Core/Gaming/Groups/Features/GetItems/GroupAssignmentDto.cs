@@ -1,2 +1,5 @@
 ﻿namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.GetItems;
-public record GroupAssignmentDto(Guid ItemId);
+public class GroupAssignmentDto
+{
+    public Guid ItemId { get; set; }
+}
