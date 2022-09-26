@@ -16,6 +16,7 @@ internal static class Installer
         services.AddScoped<IBacklogStorage, BacklogsContext>();
         services.AddScoped<IDbQueryCreator<PostgresQuery>, PostgresDbQueryCreator>();
         services.AddScoped<IQueryDbConnectionFactory, PostgresQueryDbConnectionFactory>();
+        services.AddScoped<IQueryRepository, PostgresQueryRepository>();
 
         return services;
     }
