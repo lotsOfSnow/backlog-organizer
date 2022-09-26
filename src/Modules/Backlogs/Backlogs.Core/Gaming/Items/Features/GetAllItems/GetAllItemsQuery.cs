@@ -18,8 +18,8 @@ public class GetAllItemsQueryHandler : IRequestHandler<GetAllItemsQuery, Result<
     public async Task<Result<IEnumerable<BacklogItemDto>>> Handle(GetAllItemsQuery request, CancellationToken cancellationToken)
     {
         var dbConnection = await _queryRepository.ConnectionFactory.GetOrCreateConnectionAsync();
-        var backlogExists = await CommonQueries.BacklogExists(_queryRepository, dbConnection, request.BacklogId);
 
+        var backlogExists = await CommonQueries.BacklogExists(_queryRepository, dbConnection, request.BacklogId);
         if (!backlogExists)
         {
             return Result<IEnumerable<BacklogItemDto>>
