@@ -17,7 +17,6 @@ public class GetAssignmentsQueryHandler : IRequestHandler<GetAssignmentsQuery, R
 
     public async Task<Result<IEnumerable<GroupAssignmentDto>>> Handle(GetAssignmentsQuery request, CancellationToken cancellationToken)
     {
-        // TODO: Get or create? Read if disposing it is needed.
         // TODO: Make table names constant
         // TODO: Verify if backlog exists? check if it's even worth it for the queries (+ for displaying errors)
         var conn = await _queryDbConnectionFactory.GetOrCreateConnectionAsync();
