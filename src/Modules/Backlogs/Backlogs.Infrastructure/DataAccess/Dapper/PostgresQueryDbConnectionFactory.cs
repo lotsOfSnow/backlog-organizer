@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using BacklogOrganizer.Modules.Backlogs.Core.Data;
+using BacklogOrganizer.Modules.Backlogs.Core.Data.Queries;
 using BacklogOrganizer.Shared.Infrastructure.Postgres;
 using Microsoft.Extensions.Options;
 using Npgsql;

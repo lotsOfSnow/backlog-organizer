@@ -1,4 +1,4 @@
-﻿using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
+﻿using BacklogOrganizer.Modules.Backlogs.Core.Data.Mappings;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +14,7 @@ public class BacklogGroupConfiguration : IEntityTypeConfiguration<BacklogGroup>
 
         builder.OwnsMany<GroupAssignment>("_assignments", assignments =>
         {
-            assignments.ToTable(OrmMappings.Groups.Assignments.Table);
+            assignments.ToTable(OrmMappings.GroupAssignments.Table);
 
             assignments.WithOwner().HasForeignKey(x => x.GroupId);
             assignments.HasOne<BacklogItem>().WithMany().HasForeignKey(x => x.ItemId);

@@ -1,4 +1,5 @@
-﻿using BacklogOrganizer.Modules.Backlogs.Core.Data;
+﻿using BacklogOrganizer.Modules.Backlogs.Core.Data.Mappings;
+using BacklogOrganizer.Modules.Backlogs.Core.Data.Queries;
 using BacklogOrganizer.Shared.Core.Mediator;
 using BacklogOrganizer.Shared.Core.Results;
 using Dapper;
@@ -23,7 +24,7 @@ public class GetAssignmentsQueryHandler : IRequestHandler<GetAssignmentsQuery, R
 
         var queryArgs = new { GroupId = request.GroupId };
 
-        var groupQuerySql = "SELECT EXISTS(SELECT 1 FROM \"Groups\" WHERE \"Id\" = @GroupId)";
+        var groupQuerySql = new PostgresQuery("SELECT EXISTS(SELECT 1 FROM {0} WHERE {1} = @GroupId)", OrmMappings.Groups.Table, OrmMappings.Groups.Columns.Id);
         var groupExists = await conn.QuerySingleOrDefaultAsync<bool>(groupQuerySql, queryArgs);
 
         if (!groupExists)
@@ -31,7 +32,7 @@ public class GetAssignmentsQueryHandler : IRequestHandler<GetAssignmentsQuery, R
             return Result<IEnumerable<GroupAssignmentDto>>.Failure(BacklogResultErrors.GetGroupNotFoundError(request.BacklogId, request.GroupId));
         }
 
-        var sql = "SELECT * FROM \"GroupAssignments\" WHERE \"GroupId\" = @GroupId";
+        var sql = new PostgresQuery("SELECT * FROM {0} WHERE {1} = @GroupId", OrmMappings.GroupAssignments.Table, OrmMappings.GroupAssignments.Columns.GroupId);
 
         //System.InvalidOperationException: A parameterless default constructor or one matching signature (System.Guid GroupId, System.Guid ItemId) is required for BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups.Features.GetItems.GroupAssignmentDto materialization
         var result = await conn.QueryAsync<GroupAssignmentDto>(sql, queryArgs);

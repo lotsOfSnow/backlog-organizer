@@ -1,4 +1,5 @@
 using BacklogOrganizer.Modules.Backlogs.Core.Data;
+using BacklogOrganizer.Modules.Backlogs.Core.Data.Queries;
 using BacklogOrganizer.Modules.Backlogs.Infrastructure.DataAccess;
 using BacklogOrganizer.Modules.Backlogs.Infrastructure.DataAccess.Dapper;
 using BacklogOrganizer.Shared.Infrastructure.Postgres;

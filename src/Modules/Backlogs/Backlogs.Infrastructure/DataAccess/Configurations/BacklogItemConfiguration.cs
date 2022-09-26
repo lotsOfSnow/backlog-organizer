@@ -1,4 +1,4 @@
-using BacklogOrganizer.Modules.Backlogs.Core.Gaming;
+using BacklogOrganizer.Modules.Backlogs.Core.Data.Mappings;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
