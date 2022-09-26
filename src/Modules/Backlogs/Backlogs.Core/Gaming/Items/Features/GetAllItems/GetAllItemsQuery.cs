@@ -1,7 +1,8 @@
-using BacklogOrganizer.Modules.Backlogs.Core.Data;
+using BacklogOrganizer.Modules.Backlogs.Core.Data.Mappings;
+using BacklogOrganizer.Modules.Backlogs.Core.Data.Queries;
 using BacklogOrganizer.Shared.Core.Results;
+using Dapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items.Features.GetAllItems;
 
@@ -9,28 +10,32 @@ public record GetAllItemsQuery(Guid BacklogId) : IRequest<Result<IEnumerable<Bac
 
 public class GetAllItemsQueryHandler : IRequestHandler<GetAllItemsQuery, Result<IEnumerable<BacklogItemDto>>>
 {
-    private readonly IBacklogStorage _storage;
+    private readonly IQueryRepository _queryRepository;
 
-    public GetAllItemsQueryHandler(IBacklogStorage storage)
-        => _storage = storage;
+    public GetAllItemsQueryHandler(IQueryRepository queryRepository)
+        => _queryRepository = queryRepository;
 
     public async Task<Result<IEnumerable<BacklogItemDto>>> Handle(GetAllItemsQuery request, CancellationToken cancellationToken)
     {
-        var backlog = await _storage.Backlogs
-            .Include(x => x.Items)
-            .FirstOrDefaultAsync(x => x.Id == request.BacklogId, cancellationToken);
+        var dbConnection = await _queryRepository.ConnectionFactory.GetOrCreateConnectionAsync();
+        var backlogExists = await CommonQueries.BacklogExists(_queryRepository, dbConnection, request.BacklogId);
 
-        if (backlog is null)
+        if (!backlogExists)
         {
             return Result<IEnumerable<BacklogItemDto>>
                 .Failure(BacklogResultErrors.GetBacklogNotFoundError(request.BacklogId));
         }
 
-        var mappedItems = backlog
-            .Items
-            .Select(x => new BacklogItemDto(x.Id, x.Name))
-            .ToList();
+        var args = new { request.BacklogId };
+        var query = _queryRepository
+            .GetQuery("SELECT {0}, {1} " +
+                "FROM {2} " +
+                $"WHERE {{3}} = @{nameof(args.BacklogId)}",
+            OrmMappings.Items.Columns.Id, OrmMappings.Items.Columns.Name,
+            OrmMappings.Items.Table,
+            OrmMappings.Items.Columns.BacklogId);
+        var backlogItems = await dbConnection.QueryAsync<BacklogItemDto>(query, args);
 
-        return Result<IEnumerable<BacklogItemDto>>.Success(mappedItems);
+        return Result<IEnumerable<BacklogItemDto>>.Success(backlogItems);
     }
 }
