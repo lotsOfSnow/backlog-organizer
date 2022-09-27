@@ -30,14 +30,29 @@ public static class EntityExtensions
         domainEvent.Should().BeNull();
     }
 
+    public static void ClearAllDomainEvents(this Entity aggregate)
+    {
+        foreach (var entity in aggregate.GetAllEntities())
+        {
+            entity.ClearDomainEvents();
+        }
+    }
+
     private static List<IDomainEvent> GetAllDomainEvents(this Entity aggregate)
     {
         var domainEvents = new List<IDomainEvent>();
 
-        if (aggregate.DomainEvents != null)
+        foreach (var entity in aggregate.GetAllEntities())
         {
-            domainEvents.AddRange(aggregate.DomainEvents);
+            domainEvents.AddRange(entity.DomainEvents);
         }
+
+        return domainEvents;
+    }
+
+    private static IEnumerable<Entity> GetAllEntities(this Entity aggregate)
+    {
+        yield return aggregate;
 
         var fields = aggregate.GetType()
             .GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public)
@@ -50,7 +65,10 @@ public static class EntityExtensions
             if (isEntity)
             {
                 var entity = field.GetValue(aggregate) as Entity;
-                domainEvents.AddRange(entity.GetAllDomainEvents().ToList());
+                foreach (var subEntity in entity.GetAllEntities())
+                {
+                    yield return subEntity;
+                }
             }
 
             if (field.FieldType != typeof(string) && typeof(IEnumerable).IsAssignableFrom(field.FieldType)
@@ -58,11 +76,12 @@ public static class EntityExtensions
             {
                 foreach (var entityItem in enumerable.OfType<Entity>())
                 {
-                    domainEvents.AddRange(entityItem.GetAllDomainEvents());
+                    foreach (var subEntity in entityItem.GetAllEntities())
+                    {
+                        yield return subEntity;
+                    }
                 }
             }
         }
-
-        return domainEvents;
     }
 }

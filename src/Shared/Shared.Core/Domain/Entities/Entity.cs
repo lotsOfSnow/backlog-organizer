@@ -12,4 +12,9 @@ public abstract class Entity
     {
         _domainEvents.Add(@event);
     }
+
+    public void ClearDomainEvents()
+    {
+        _domainEvents.Clear();
+    }
 }

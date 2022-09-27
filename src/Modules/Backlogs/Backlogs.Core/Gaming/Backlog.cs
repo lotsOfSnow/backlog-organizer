@@ -1,5 +1,4 @@
 using Ardalis.GuardClauses;
-using BacklogOrganizer.Modules.Backlogs.Core.Exceptions;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Exceptions;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
@@ -35,14 +34,43 @@ public class Backlog : GuidIdEntity, IAggregateRoot
 
     public void RemoveItem(Guid itemId)
     {
-        var item = _items.FirstOrDefault(x => x.Id == itemId);
+        var item = _items.SingleOrDefault(x => x.Id == itemId);
 
         if (item is null)
         {
-            throw new BacklogItemDoesntExistException(Id, itemId);
+            throw new BacklogItemNotFoundException(Id, itemId);
         }
 
         _items.Remove(item);
+    }
+
+    public void AddItemPlatform(Guid itemId, Platform platform)
+    {
+        if (!platform.IsDefault)
+        {
+            throw new NotImplementedException("Adding custom platforms isn't supported at the moment");
+        }
+
+        var item = _items.SingleOrDefault(x => x.Id == itemId);
+
+        if (item is null)
+        {
+            throw new BacklogItemNotFoundException(Id, itemId);
+        }
+
+        item.AddPlatform(platform);
+    }
+
+    public void RemoveItemPlatform(Guid itemId, Guid platformId)
+    {
+        var item = _items.SingleOrDefault(x => x.Id == itemId);
+
+        if (item is null)
+        {
+            throw new BacklogItemNotFoundException(Id, itemId);
+        }
+
+        item.RemovePlatform(platformId);
     }
 
     public void AddGroup(BacklogGroup group)
