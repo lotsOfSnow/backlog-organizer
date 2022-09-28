@@ -22,7 +22,7 @@ public class BacklogItem : GuidIdEntity
 
         foreach (var platform in platforms)
         {
-            AddPlatform(platform);
+            AddPlatform(platform.Id);
         }
     }
 
@@ -33,23 +33,32 @@ public class BacklogItem : GuidIdEntity
     public void UpdateName(string name)
         => Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
 
-    public void AddPlatform(Platform platform)
-        => _platforms.Add(new(Id, platform.Id));
-
-    public void RemovePlatform(Guid id)
+    public void UpdatePlatforms(IEnumerable<Platform> newPlatforms)
     {
-        var platform = _platforms.SingleOrDefault(x => x.PlatformId == id);
-        if (platform is null)
+        var currentPlatformIds = _platforms.Select(x => x.PlatformId).ToList();
+        var newPlatformIds = newPlatforms.Select(x => x.Id);
+        var toAdd = newPlatformIds.Except(currentPlatformIds);
+        var toRemove = currentPlatformIds.Except(newPlatformIds);
+
+        foreach (var platformId in toAdd)
         {
-            return;
+            AddPlatform(platformId);
         }
 
-        _platforms.Remove(platform);
-        AddDomainEvent(new PlatformUnassignedDomainEvent(platform.ItemId, platform.PlatformId));
+        foreach (var platformId in toRemove)
+        {
+            _platforms.RemoveWhere(x => x.PlatformId == platformId);
+            AddDomainEvent(new PlatformUnassignedDomainEvent(Id, platformId));
+        }
     }
 
     public void SetCompletionStatus(ItemCompletionStatus status)
     {
         CompletionStatusDetails = new(status);
+    }
+
+    private void AddPlatform(Guid id)
+    {
+        _platforms.Add(new(Id, id));
     }
 }

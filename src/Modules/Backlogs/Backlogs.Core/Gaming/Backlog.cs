@@ -44,9 +44,9 @@ public class Backlog : GuidIdEntity, IAggregateRoot
         _items.Remove(item);
     }
 
-    public void AddItemPlatform(Guid itemId, Platform platform)
+    public void UpdateItemPlatforms(Guid itemId, IEnumerable<Platform> newPlatforms)
     {
-        if (!platform.IsDefault)
+        if (newPlatforms.Any(x => !x.IsDefault))
         {
             throw new NotImplementedException("Adding custom platforms isn't supported at the moment");
         }
@@ -58,19 +58,7 @@ public class Backlog : GuidIdEntity, IAggregateRoot
             throw new BacklogItemNotFoundException(Id, itemId);
         }
 
-        item.AddPlatform(platform);
-    }
-
-    public void RemoveItemPlatform(Guid itemId, Guid platformId)
-    {
-        var item = _items.SingleOrDefault(x => x.Id == itemId);
-
-        if (item is null)
-        {
-            throw new BacklogItemNotFoundException(Id, itemId);
-        }
-
-        item.RemovePlatform(platformId);
+        item.UpdatePlatforms(newPlatforms);
     }
 
     public void AddGroup(BacklogGroup group)

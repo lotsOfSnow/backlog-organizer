@@ -9,20 +9,17 @@ public class BacklogItemPlatformsTests
     [Fact]
     public void Assigns_initial_unique_platforms()
     {
-        const int platformsToCreate = 2;
-        var platform1 = Platform.Default(Guid.NewGuid(), "Platform1");
-        var platform2 = Platform.Default(Guid.NewGuid(), "Platform2");
-        var platform3 = Platform.Default(platform1.Id, "Platform3");
-
-        var platformsToAdd = new[] { platform1, platform2, platform2, platform3 };
         var backlog = new Backlog(Guid.NewGuid());
 
+        var uniquePlatforms = new[] { Platform.Default(Guid.NewGuid(), "Platform1"), Platform.Default(Guid.NewGuid(), "Platform2") };
+        var platform3 = Platform.Default(uniquePlatforms[0].Id, "Platform3");
+        var platformsToAdd = new[] { uniquePlatforms[0], uniquePlatforms[1], uniquePlatforms[1], platform3 };
         var item = new BacklogItem(Guid.NewGuid(), "Item", platformsToAdd);
         backlog.AddItem(item);
 
-        var expectedPlatforms = new[] { platform1, platform2 };
+        var expectedPlatforms = uniquePlatforms;
         var events = backlog.AssertPublishedDomainEvents<NewPlatformAssignedDomainEvent>();
-        events.Should().HaveCount(platformsToCreate);
+        events.Should().HaveSameCount(uniquePlatforms);
         for (var i = 0; i < events.Count; i++)
         {
             events[i].ItemId.Should().Be(item.Id);
@@ -38,7 +35,7 @@ public class BacklogItemPlatformsTests
         backlog.AddItem(item);
 
         var platform = GetPlatform();
-        backlog.AddItemPlatform(item.Id, platform);
+        backlog.UpdateItemPlatforms(item.Id, new[] { platform });
 
         var events = backlog.AssertPublishedDomainEvents<NewPlatformAssignedDomainEvent>();
         events.Should().ContainSingle();
@@ -56,28 +53,52 @@ public class BacklogItemPlatformsTests
         backlog.ClearAllDomainEvents();
 
         var duplicatePlatforms = new[] { platform, Platform.Default(platform.Id, "New name") };
-        foreach (var duplicatePlatform in duplicatePlatforms)
-        {
-            backlog.AddItemPlatform(item.Id, duplicatePlatform);
-        }
+        backlog.UpdateItemPlatforms(item.Id, duplicatePlatforms);
 
         backlog.AssertDomainEventNotPublished<NewPlatformAssignedDomainEvent>();
     }
 
     [Fact]
-    public void Can_remove_platform()
+    public void Can_remove_all_platforms()
     {
         var backlog = new Backlog(Guid.NewGuid());
         var platform = GetPlatform();
         var item = new BacklogItem(Guid.NewGuid(), "Item", new[] { platform });
         backlog.AddItem(item);
 
-        backlog.RemoveItemPlatform(item.Id, platform.Id);
+        backlog.UpdateItemPlatforms(item.Id, Array.Empty<Platform>());
 
         var events = backlog.AssertPublishedDomainEvents<PlatformUnassignedDomainEvent>();
         events.Should().ContainSingle();
         events.Single().ItemId.Should().Be(item.Id);
         events.Single().PlatformId.Should().Be(platform.Id);
+    }
+
+    [Fact]
+    public void Can_selectively_update_platforms()
+    {
+        var backlog = new Backlog(Guid.NewGuid());
+        var platformToKeep = GetPlatform();
+        var platformToRemove = GetPlatform();
+        var item = new BacklogItem(Guid.NewGuid(), "Item", new[] { platformToKeep, platformToRemove });
+        backlog.AddItem(item);
+        backlog.ClearAllDomainEvents();
+
+        var newPlatforms = new[] { GetPlatform(), GetPlatform() };
+        backlog.UpdateItemPlatforms(item.Id, new[] { platformToKeep, newPlatforms[0], newPlatforms[1] });
+
+        var unassigningEvents = backlog.AssertPublishedDomainEvents<PlatformUnassignedDomainEvent>();
+        unassigningEvents.Should().ContainSingle();
+        unassigningEvents.Single().ItemId.Should().Be(item.Id);
+        unassigningEvents.Single().PlatformId.Should().Be(platformToRemove.Id);
+
+        var assigningEvents = backlog.AssertPublishedDomainEvents<NewPlatformAssignedDomainEvent>();
+        assigningEvents.Should().HaveSameCount(newPlatforms);
+        for (var i = 0; i < assigningEvents.Count; i++)
+        {
+            assigningEvents[i].ItemId.Should().Be(item.Id);
+            assigningEvents[i].PlatformId.Should().Be(newPlatforms[i].Id);
+        }
     }
 
     private static Platform GetPlatform()
