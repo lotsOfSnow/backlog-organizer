@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.Gaming.Features.GetAllGroups;
+
 [Route(ApiRoutes.BacklogGroups)]
 [ApiVersion(ApiVersions.V1)]
-
 public class GetAllGroupsEndpoint : BaseController
 {
     public GetAllGroupsEndpoint(IMediator mediator) : base(mediator)
@@ -21,8 +21,8 @@ public class GetAllGroupsEndpoint : BaseController
         Summary = "Get all groups of a backlog",
         OperationId = "getAllGamingBacklogGroups",
         Tags = new[] { ApiTags.BacklogGroups })]
-    [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<IEnumerable<BacklogGroupDto>>> GetAssignmentsAsync(Guid backlogId)
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult<IEnumerable<BacklogGroupDto>>> GetAllGroupsAsync(Guid backlogId)
     {
         var query = new GetAllGroupsQuery(backlogId);
         var result = await Mediator.Send(query);

@@ -20,7 +20,6 @@ public static class OrmMappings
             public static readonly OrmValueMapping Id = "Id";
 
             public static readonly OrmValueMapping BacklogId = "BacklogId";
-
         }
     }
 

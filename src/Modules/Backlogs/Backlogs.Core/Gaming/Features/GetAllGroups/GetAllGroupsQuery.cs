@@ -28,7 +28,6 @@ public class GetAllGroupsQueryHandler : IRequestHandler<GetAllGroupsQuery, Resul
         }
 
         var backlogGroupsQuery = _queryRepository.GetQuery("SELECT * FROM {0} WHERE {1} = @BacklogId", OrmMappings.Groups.Table, OrmMappings.Groups.Columns.BacklogId);
-
         var result = await dbConnection.QueryAsync<BacklogGroupDto>(backlogGroupsQuery, new { request.BacklogId });
 
         return Result<IEnumerable<BacklogGroupDto>>.Success(result);

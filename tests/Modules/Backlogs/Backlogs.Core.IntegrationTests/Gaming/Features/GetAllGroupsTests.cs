@@ -29,7 +29,6 @@ public class GetAllGroupsTests : BacklogTests
     public async Task Returns_empty_successful_response_if_no_groups_exist()
     {
         var backlog = new Backlog(Guid.NewGuid());
-
         await Factory.ExecuteDbContextAsync(async db =>
         {
             db.Backlogs.Add(backlog);
