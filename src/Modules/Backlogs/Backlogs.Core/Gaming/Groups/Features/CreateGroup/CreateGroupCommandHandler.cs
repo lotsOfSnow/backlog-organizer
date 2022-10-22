@@ -32,7 +32,7 @@ public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Res
 
         await _repo.SaveChangesAsync(cancellationToken);
 
-        var dto = new BacklogGroupDto(group.Id, group.Name);
+        var dto = new BacklogGroupDto(group.Id, request.BacklogId, group.Name);
         return Result<BacklogGroupDto>.Success(dto);
     }
 }

@@ -2,12 +2,12 @@
 using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Groups;
 using Xunit.Abstractions;
 
-namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Gaming.Groups;
-public abstract class GroupsTests : IClassFixture<BacklogsApplicationFactory>
+namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Gaming;
+public abstract class BacklogTests : IClassFixture<BacklogsApplicationFactory>
 {
     protected BacklogsApplicationFactory Factory { get; }
 
-    protected GroupsTests(ITestOutputHelper testOutputHelper, BacklogsApplicationFactory factory)
+    protected BacklogTests(ITestOutputHelper testOutputHelper, BacklogsApplicationFactory factory)
     {
         Factory = factory;
         Factory.TestOutputHelper = testOutputHelper;
