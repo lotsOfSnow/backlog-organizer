@@ -5,7 +5,7 @@ using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 using Xunit.Abstractions;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Gaming.Groups.Features;
-public class AddItemToGroupTests : GroupsTests
+public class AddItemToGroupTests : BacklogTests
 {
     public AddItemToGroupTests(ITestOutputHelper testOutputHelper, BacklogsApplicationFactory factory)
         : base(testOutputHelper, factory)

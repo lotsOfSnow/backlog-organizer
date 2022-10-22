@@ -3,7 +3,7 @@ using BacklogOrganizer.Modules.Backlogs.Core.Gaming.Items;
 using Xunit.Abstractions;
 
 namespace BacklogOrganizer.Modules.Backlogs.Core.IntegrationTests.Gaming.Groups.Features;
-public class GetAssignmentsTests : GroupsTests
+public class GetAssignmentsTests : BacklogTests
 {
     public GetAssignmentsTests(ITestOutputHelper testOutputHelper, BacklogsApplicationFactory factory)
         : base(testOutputHelper, factory)
