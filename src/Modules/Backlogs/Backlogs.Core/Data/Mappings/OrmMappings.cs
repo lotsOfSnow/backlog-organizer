@@ -18,6 +18,9 @@ public static class OrmMappings
         public static class Columns
         {
             public static readonly OrmValueMapping Id = "Id";
+
+            public static readonly OrmValueMapping BacklogId = "BacklogId";
+
         }
     }
 
