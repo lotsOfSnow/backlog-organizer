@@ -30,6 +30,8 @@ public static class OrmMappings
         public static class Columns
         {
             public static readonly OrmValueMapping GroupId = "GroupId";
+
+            public static readonly OrmValueMapping ItemId = "ItemId";
         }
     }
 
